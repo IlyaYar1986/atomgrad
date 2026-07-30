@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+._*
+
+# Python (структурные тесты в tests/)
+__pycache__/
+*.py[cod]
+
+# Редакторы
+.idea/
+*.swp
