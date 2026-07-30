@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Калькулятор: сколько сэкономит помощник</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1a3054; --navy-dk:#12233d; --navy-lt:#e8edf5;
+  --green:#4ea634; --green-dk:#3d8140; --green-lt:#eef7ea;
+  --bg:#f4f6f9; --card:#fff; --border:#dde3ec;
+  --text:#12233d; --muted:#64748b; --red:#b91c1c; --red-lt:#fef2f2; --amber-lt:#fff8e6; --amber:#92400e;
+}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:18px}
+.wrap{max-width:1040px;margin:0 auto}
+.cols{display:grid;grid-template-columns:380px 1fr;gap:16px}
+@media(max-width:880px){.cols{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.panel-head{padding:11px 16px;background:linear-gradient(135deg,var(--navy),var(--green));color:#fff;font-weight:800;font-size:.8rem;letter-spacing:.5px;text-transform:uppercase}
+.ctrls{padding:14px 16px;display:flex;flex-direction:column;gap:15px}
+.ctrl-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+.ctrl-name{font-size:.85rem;font-weight:700}
+.ctrl-val{font-size:.85rem;font-weight:800;color:var(--green-dk);font-variant-numeric:tabular-nums}
+.ctrl-hint{font-size:.74rem;color:var(--muted);margin-top:3px;line-height:1.4}
+input[type=range]{width:100%;accent-color:var(--green);cursor:pointer}
+.preset{display:flex;gap:6px;flex-wrap:wrap;padding:0 16px 14px}
+.preset button{font-family:inherit;font-size:.74rem;font-weight:700;padding:6px 11px;border:1px solid var(--border);background:#fff;color:var(--muted);border-radius:100px;cursor:pointer;transition:all .18s}
+.preset button:hover{border-color:var(--green);color:var(--green-dk);background:var(--green-lt)}
+.res{padding:16px 18px}
+.big{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+@media(max-width:520px){.big{grid-template-columns:1fr}}
+.stat{border:1px solid var(--border);border-radius:12px;padding:13px 15px;background:#fbfcfe}
+.stat-lbl{font-size:.7rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.stat-num{font-size:1.65rem;font-weight:900;letter-spacing:-.5px;font-variant-numeric:tabular-nums;line-height:1.15}
+.stat-sub{font-size:.76rem;color:var(--muted);margin-top:2px}
+.stat-green .stat-num{color:var(--green-dk)}
+.stat-navy .stat-num{color:var(--navy)}
+.split{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px}
+.split-row{display:flex;justify-content:space-between;padding:9px 15px;font-size:.86rem;border-bottom:1px solid var(--border)}
+.split-row:last-child{border-bottom:none}
+.split-row.total{background:var(--green-lt);font-weight:800;color:var(--green-dk)}
+.split-row.total.total-neg{background:var(--red-lt);color:var(--red)}
+.split-row span:last-child{font-variant-numeric:tabular-nums;font-weight:700}
+.bar-wrap{margin-bottom:14px}
+.bar-lbl{display:flex;justify-content:space-between;font-size:.76rem;font-weight:700;color:var(--muted);margin-bottom:6px}
+.bar{height:26px;border-radius:8px;background:var(--navy-lt);overflow:hidden;display:flex}
+.bar-you{background:linear-gradient(135deg,var(--navy),#2d4a70);height:100%;transition:width .35s ease}
+.bar-bot{background:linear-gradient(135deg,var(--green),#7cc95f);height:100%;transition:width .35s ease}
+.verdict{padding:13px 16px;border-radius:12px;font-size:.87rem;line-height:1.6}
+.v-good{background:var(--green-lt);color:var(--green-dk);border:1px solid #bfe0b0}
+.v-warn{background:var(--amber-lt);color:var(--amber);border:1px solid #f5d98a}
+.v-bad{background:var(--red-lt);color:var(--red);border:1px solid #f5c2c2}
+.verdict b{display:block;margin-bottom:3px}
+.foot{margin-top:16px;background:var(--navy);color:#e7ecf4;border-radius:14px;padding:14px 18px;font-size:.86rem}
+.foot b{color:#a8dc93}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="cols">
+
+    <div class="panel">
+      <div class="panel-head">Ваши цифры</div>
+      <div class="ctrls">
+        <div>
+          <div class="ctrl-top"><span class="ctrl-name">Часов в неделю на этот процесс</span><span class="ctrl-val" id="v-hours">8 ч</span></div>
+          <input type="range" id="hours" min="1" max="40" value="8" step="1">
+          <p class="ctrl-hint">Сколько времени процесс съедает у всех, кто им занят</p>
+        </div>
+        <div>
+          <div class="ctrl-top"><span class="ctrl-name">Стоимость часа</span><span class="ctrl-val" id="v-rate">600 ₽</span></div>
+          <input type="range" id="rate" min="200" max="3000" value="600" step="50">
+          <p class="ctrl-hint">Зарплата с налогами ÷ на отработанные часы. Своё время тоже считайте</p>
+        </div>
+        <div>
+          <div class="ctrl-top"><span class="ctrl-name">Какую долю заберёт помощник</span><span class="ctrl-val" id="v-share">60 %</span></div>
+          <input type="range" id="share" min="10" max="90" value="60" step="5">
+          <p class="ctrl-hint">Честно: не 100 %. Проверять и дорабатывать всё равно придётся</p>
+        </div>
+        <div>
+          <div class="ctrl-top"><span class="ctrl-name">Подписка на сервис в месяц</span><span class="ctrl-val" id="v-cost">2 000 ₽</span></div>
+          <input type="range" id="cost" min="0" max="20000" value="2000" step="500">
+          <p class="ctrl-hint">0 — если хватает бесплатного тарифа</p>
+        </div>
+        <div>
+          <div class="ctrl-top"><span class="ctrl-name">Часов на настройку</span><span class="ctrl-val" id="v-setup">10 ч</span></div>
+          <input type="range" id="setup" min="1" max="80" value="10" step="1">
+          <p class="ctrl-hint">Разово: описать процесс, собрать документы, прогнать и поправить</p>
+        </div>
+      </div>
+      <div class="preset">
+        <button type="button" data-preset="8,600,60,2000,10">Ответы клиентам</button>
+        <button type="button" data-preset="4,900,70,2000,8">Отчёты и таблицы</button>
+        <button type="button" data-preset="6,1200,50,3000,16">Подбор персонала</button>
+        <button type="button" data-preset="1,800,40,2000,20">Раз в квартал</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">Что получится</div>
+      <div class="res">
+
+        <div class="big">
+          <div class="stat stat-green">
+            <p class="stat-lbl">Экономия в месяц</p>
+            <p class="stat-num" id="save-month">—</p>
+            <p class="stat-sub" id="save-hours">—</p>
+          </div>
+          <div class="stat stat-navy">
+            <p class="stat-lbl">Настройка окупится за</p>
+            <p class="stat-num" id="payback">—</p>
+            <p class="stat-sub" id="payback-sub">—</p>
+          </div>
+        </div>
+
+        <div class="bar-wrap">
+          <div class="bar-lbl"><span>Как разойдётся время процесса</span><span id="bar-legend">—</span></div>
+          <div class="bar"><div class="bar-you" id="bar-you"></div><div class="bar-bot" id="bar-bot"></div></div>
+        </div>
+
+        <div class="split">
+          <div class="split-row"><span>Освобождается часов в месяц</span><span id="r-hours">—</span></div>
+          <div class="split-row"><span>Это в деньгах</span><span id="r-gross">—</span></div>
+          <div class="split-row"><span>Минус подписка</span><span id="r-cost">—</span></div>
+          <div class="split-row"><span>Разовые вложения в настройку</span><span id="r-setup">—</span></div>
+          <div class="split-row total"><span>Чистыми за год</span><span id="r-year">—</span></div>
+        </div>
+
+        <div class="verdict" id="verdict"></div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <b>Где помощник дороже человека.</b> Разовые задачи, всё, что требует личного контакта,
+    и всё, где ошибка стоит дороже экономии. Процесс раз в квартал автоматизировать не надо —
+    настройка съест больше, чем сэкономит.
+  </div>
+
+</div>
+
+<script>
+const WEEKS_IN_MONTH = 4.33;
+const ids = ["hours", "rate", "share", "cost", "setup"];
+const inputs = {};
+ids.forEach((id) => { inputs[id] = document.getElementById(id); });
+
+const money = (value) => {
+  const rounded = Math.round(value);
+  const sign = rounded < 0 ? "− " : "";
+  return `${sign}${Math.abs(rounded).toLocaleString("ru-RU")} ₽`;
+};
+const formatHours = (value) => `${value.toFixed(1).replace(".", ",")} ч`;
+
+function render() {
+  const hours = Number(inputs.hours.value);
+  const rate = Number(inputs.rate.value);
+  const share = Number(inputs.share.value);
+  const cost = Number(inputs.cost.value);
+  const setup = Number(inputs.setup.value);
+
+  document.getElementById("v-hours").textContent = `${hours} ч`;
+  document.getElementById("v-rate").textContent = money(rate);
+  document.getElementById("v-share").textContent = `${share} %`;
+  document.getElementById("v-cost").textContent = money(cost);
+  document.getElementById("v-setup").textContent = `${setup} ч`;
+
+  const monthHours = hours * WEEKS_IN_MONTH;
+  const savedHours = monthHours * (share / 100);
+  const gross = savedHours * rate;
+  const net = gross - cost;
+  const setupCost = setup * rate;
+  const year = net * 12 - setupCost;
+
+  document.getElementById("save-month").textContent = money(Math.max(net, 0));
+  document.getElementById("save-hours").textContent = `${formatHours(savedHours)} освободится`;
+  document.getElementById("r-hours").textContent = formatHours(savedHours);
+  document.getElementById("r-gross").textContent = money(gross);
+  document.getElementById("r-cost").textContent = `− ${money(cost)}`;
+  document.getElementById("r-setup").textContent = `− ${money(setupCost)} разово`;
+
+  const yearRow = document.getElementById("r-year");
+  yearRow.textContent = money(year);
+  yearRow.closest(".split-row").classList.toggle("total-neg", year < 0);
+
+  document.getElementById("bar-you").style.width = `${100 - share}%`;
+  document.getElementById("bar-bot").style.width = `${share}%`;
+  document.getElementById("bar-legend").textContent = `вы — ${100 - share} % · помощник — ${share} %`;
+
+  const paybackEl = document.getElementById("payback");
+  const paybackSub = document.getElementById("payback-sub");
+  const verdict = document.getElementById("verdict");
+
+  if (net <= 0) {
+    paybackEl.textContent = "никогда";
+    paybackSub.textContent = "подписка съедает всю экономию";
+    verdict.className = "verdict v-bad";
+    verdict.innerHTML = "<b>Не автоматизируйте это.</b> При таких вводных подписка стоит дороже, чем сэкономленное время. Либо процесс слишком мелкий, либо тариф слишком дорогой для него.";
+    return;
+  }
+
+  const months = setupCost / net;
+  if (months < 1) {
+    const days = Math.max(Math.round(months * 30), 1);
+    paybackEl.textContent = `${days} дн.`;
+  } else {
+    paybackEl.textContent = `${months.toFixed(1)} мес.`;
+  }
+  paybackSub.textContent = `вложите ${money(setupCost)} своего времени`;
+
+  if (months <= 1.5) {
+    verdict.className = "verdict v-good";
+    verdict.innerHTML = "<b>Хороший кандидат на первый пилот.</b> Настройка окупается быстрее, чем вы успеете к ней привыкнуть. Начинайте с этого процесса.";
+  } else if (months <= 6) {
+    verdict.className = "verdict v-warn";
+    verdict.innerHTML = "<b>Считается, но не первым.</b> Окупаемость есть, однако найдите процесс, который окупится за месяц — с ним вы быстрее поверите в результат и не бросите на середине.";
+  } else {
+    verdict.className = "verdict v-bad";
+    verdict.innerHTML = "<b>Слишком долго.</b> Больше полугода окупаемости для малого бизнеса — это риск бросить на полпути. Возьмите процесс, который повторяется чаще.";
+  }
+}
+
+ids.forEach((id) => inputs[id].addEventListener("input", render));
+document.querySelectorAll(".preset button").forEach((button) => {
+  button.addEventListener("click", () => {
+    const values = button.dataset.preset.split(",");
+    ids.forEach((id, index) => { inputs[id].value = values[index]; });
+    render();
+  });
+});
+
+render();
+</script>
+</body>
+</html>

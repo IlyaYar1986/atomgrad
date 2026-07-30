@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Карта сервисов: с чего начать и куда расти</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1a3054; --navy-dk:#12233d; --navy-lt:#e8edf5;
+  --green:#4ea634; --green-dk:#3d8140; --green-lt:#eef7ea;
+  --bg:#f4f6f9; --card:#fff; --border:#dde3ec;
+  --text:#12233d; --muted:#64748b;
+  --amber-lt:#fff8e6; --amber:#92400e; --red-lt:#fdf0f0; --red:#9f1239;
+}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:18px}
+.wrap{max-width:1080px;margin:0 auto}
+.filters{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px 16px;margin-bottom:14px}
+.f-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.f-row + .f-row{margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.f-lbl{font-size:.68rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-right:2px;min-width:96px}
+.f-row button{font-family:inherit;font-size:.76rem;font-weight:700;padding:6px 12px;border:1px solid var(--border);background:#fff;color:var(--muted);border-radius:100px;cursor:pointer;transition:all .18s}
+.f-row button:hover{border-color:var(--navy);color:var(--navy)}
+.f-row button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.f-row button.on[data-access="free"]{background:var(--green-dk);border-color:var(--green-dk)}
+.count{margin-left:auto;font-size:.78rem;color:var(--muted);font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.svc{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:14px 16px;display:flex;flex-direction:column;gap:7px}
+.svc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.svc-name{font-weight:800;font-size:.97rem}
+.svc-name a{color:var(--navy);text-decoration:underline;text-underline-offset:2px}
+.svc-name a:hover{color:var(--green-dk)}
+.badge{font-size:.65rem;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:3px 9px;border-radius:100px;white-space:nowrap;flex-shrink:0}
+.b-free{background:var(--green-lt);color:var(--green-dk);border:1px solid #bfe0b0}
+.b-card{background:var(--amber-lt);color:var(--amber);border:1px solid #f5d98a}
+.b-vpn{background:var(--red-lt);color:var(--red);border:1px solid #f3c6ce}
+.b-local{background:var(--navy-lt);color:var(--navy);border:1px solid #c4d0e2}
+.svc-what{font-size:.85rem;color:var(--text)}
+.svc-note{font-size:.78rem;color:var(--muted);line-height:1.5}
+.tasks{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.task-tag{font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:100px;background:#f1f4f9;color:var(--muted)}
+.empty{grid-column:1/-1;text-align:center;padding:34px;color:var(--muted);font-size:.9rem}
+.foot{margin-top:16px;background:var(--navy);color:#e7ecf4;border-radius:14px;padding:14px 18px;font-size:.85rem}
+.foot b{color:#a8dc93}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="filters">
+    <div class="f-row">
+      <span class="f-lbl">Доступность</span>
+      <button type="button" class="on" data-access="all">Все</button>
+      <button type="button" data-access="free">Без карты и VPN</button>
+      <button type="button" data-access="card">Нужна зарубежная карта</button>
+      <button type="button" data-access="local">Работает у вас на компьютере</button>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="f-row">
+      <span class="f-lbl">Задача</span>
+      <button type="button" class="on" data-task="all">Любая</button>
+      <button type="button" data-task="Тексты">Тексты</button>
+      <button type="button" data-task="Документы">Документы</button>
+      <button type="button" data-task="Встречи">Встречи</button>
+      <button type="button" data-task="Автоматизация">Автоматизация</button>
+      <button type="button" data-task="Готовое">Готовые решения</button>
+    </div>
+  </div>
+
+  <div class="cards" id="cards"></div>
+
+  <div class="foot">
+    <b>Правило выбора.</b> Начните с того, что открывается в браузере без карты.
+    Переходите дальше, только когда упрётесь в конкретное ограничение — а не потому,
+    что «там написано, что круче». Доступность сервисов меняется: перед вебинаром проверьте актуальность.
+  </div>
+
+</div>
+
+<script>
+const SERVICES = [
+  {
+    name: "GigaChat",
+    url: "https://giga.chat/",
+    access: "free",
+    what: "Российский помощник от Сбера: тексты, ответы клиентам, разбор документов.",
+    note: "Вход по номеру телефона, есть бесплатный тариф. Подойдёт как первый инструмент.",
+    tasks: ["Тексты", "Документы"],
+  },
+  {
+    name: "Алиса AI (Яндекс)",
+    url: "https://alice.yandex.ru/",
+    access: "free",
+    what: "Помощник Яндекса в браузере и в приложении: тексты, выжимки, ответы на вопросы.",
+    note: "Знаком сотрудникам, не пугает интерфейсом. Хорош для первого касания.",
+    tasks: ["Тексты"],
+  },
+  {
+    name: "Yandex Cloud AI Studio",
+    url: "https://yandex.cloud/ru/services/ai-studio",
+    access: "free",
+    what: "Сборка помощников на моделях Яндекса с подключением своих документов.",
+    note: "Оплата с российской карты. Нужен человек, готовый разобраться в настройках.",
+    tasks: ["Документы", "Автоматизация"],
+  },
+  {
+    name: "Cloud.ru",
+    url: "https://cloud.ru/",
+    access: "free",
+    what: "Российское облако с доступом к языковым моделям и хранением данных внутри РФ.",
+    note: "Актуально, когда данные нельзя выпускать за периметр.",
+    tasks: ["Документы", "Автоматизация"],
+  },
+  {
+    name: "Claude",
+    url: "https://claude.ai/",
+    access: "card",
+    what: "Помощник Anthropic: длинные документы, многошаговые задачи, работа с файлами.",
+    note: "Нужна зарубежная карта и доступ. Сильная сторона — длинные цепочки шагов и большие тексты.",
+    tasks: ["Тексты", "Документы", "Автоматизация"],
+  },
+  {
+    name: "ChatGPT",
+    url: "https://chatgpt.com/",
+    access: "card",
+    what: "Помощник OpenAI: тексты, таблицы, картинки, голосовой режим.",
+    note: "Нужна зарубежная карта и доступ. Самый известный — с него часто начинают сравнение.",
+    tasks: ["Тексты", "Документы"],
+  },
+  {
+    name: "Gemini",
+    url: "https://gemini.google.com/",
+    access: "card",
+    what: "Помощник Google, связан с почтой, документами и таблицами Google.",
+    note: "Нужна зарубежная карта и доступ. Имеет смысл, если вы уже живёте в Google-документах.",
+    tasks: ["Тексты", "Документы"],
+  },
+  {
+    name: "LM Studio",
+    url: "https://lmstudio.ai/",
+    access: "local",
+    what: "Запуск языковой модели прямо на вашем компьютере, без интернета.",
+    note: "Бесплатно. Данные не покидают компьютер — вариант для чувствительных документов.",
+    tasks: ["Тексты", "Документы"],
+  },
+  {
+    name: "Ollama",
+    url: "https://ollama.com/",
+    access: "local",
+    what: "Локальный запуск моделей, удобен для встраивания в свои сценарии.",
+    note: "Бесплатно, но потребуется человек с техническими руками.",
+    tasks: ["Автоматизация", "Документы"],
+  },
+  {
+    name: "Whisper (локально)",
+    url: "https://github.com/openai/whisper",
+    access: "local",
+    what: "Расшифровка записей встреч и звонков на вашем компьютере.",
+    note: "Бесплатно, запись никуда не уходит. Именно так сделано демо с протоколом планёрки.",
+    tasks: ["Встречи"],
+  },
+  {
+    name: "n8n",
+    url: "https://n8n.io/",
+    access: "local",
+    what: "Конструктор автоматизаций: связывает почту, таблицы, мессенджеры и модель.",
+    note: "Можно поставить на свой сервер. Тот случай, когда без технического человека не обойтись.",
+    tasks: ["Автоматизация"],
+  },
+  {
+    name: "Каталог MCP-серверов",
+    url: "https://github.com/modelcontextprotocol/servers",
+    access: "free",
+    what: "Список готовых коннекторов: почта, календари, файлы, базы данных, мессенджеры.",
+    note: "Открытый каталог. Показывает, к чему помощник подключается без разработки с нуля.",
+    tasks: ["Готовое", "Автоматизация"],
+  },
+  {
+    name: "Документация MCP",
+    url: "https://modelcontextprotocol.io/",
+    access: "free",
+    what: "Описание стандарта подключения помощников к внешним сервисам.",
+    note: "Пригодится тому, кто будет подключать помощника к вашим системам.",
+    tasks: ["Готовое"],
+  },
+  {
+    name: "Hugging Face",
+    url: "https://huggingface.co/",
+    access: "free",
+    what: "Крупнейший каталог моделей и готовых решений, много бесплатных.",
+    note: "Полезен, когда нужна узкая задача: распознавание, классификация, перевод.",
+    tasks: ["Готовое"],
+  },
+];
+
+const ACCESS_LABEL = {
+  free: ["b-free", "Без карты и VPN"],
+  card: ["b-card", "Нужна зарубежная карта"],
+  local: ["b-local", "На вашем компьютере"],
+};
+
+let accessFilter = "all";
+let taskFilter = "all";
+const cards = document.getElementById("cards");
+const count = document.getElementById("count");
+
+function render() {
+  const visible = SERVICES.filter((service) => {
+    const okAccess = accessFilter === "all" || service.access === accessFilter;
+    const okTask = taskFilter === "all" || service.tasks.includes(taskFilter);
+    return okAccess && okTask;
+  });
+
+  cards.innerHTML = "";
+  count.textContent = `Показано: ${visible.length} из ${SERVICES.length}`;
+
+  if (!visible.length) {
+    const empty = document.createElement("p");
+    empty.className = "empty";
+    empty.textContent = "Под эти условия ничего не подошло — снимите один из фильтров.";
+    cards.appendChild(empty);
+    return;
+  }
+
+  visible.forEach((service) => {
+    const [badgeClass, badgeText] = ACCESS_LABEL[service.access];
+    const card = document.createElement("article");
+    card.className = "svc";
+    card.innerHTML = `
+      <div class="svc-top">
+        <p class="svc-name"><a href="${service.url}" target="_blank" rel="noopener">${service.name}</a></p>
+        <span class="badge ${badgeClass}">${badgeText}</span>
+      </div>
+      <p class="svc-what">${service.what}</p>
+      <p class="svc-note">${service.note}</p>
+      <div class="tasks">${service.tasks.map((task) => `<span class="task-tag">${task}</span>`).join("")}</div>`;
+    cards.appendChild(card);
+  });
+}
+
+document.querySelectorAll("[data-access]").forEach((button) => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll("[data-access]").forEach((other) => other.classList.remove("on"));
+    button.classList.add("on");
+    accessFilter = button.dataset.access;
+    render();
+  });
+});
+
+document.querySelectorAll("[data-task]").forEach((button) => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll("[data-task]").forEach((other) => other.classList.remove("on"));
+    button.classList.add("on");
+    taskFilter = button.dataset.task;
+    render();
+  });
+});
+
+render();
+</script>
+</body>
+</html>

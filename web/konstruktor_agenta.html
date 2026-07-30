@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Конструктор помощника — соберите его по частям</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1a3054; --navy-dk:#12233d; --navy-lt:#e8edf5;
+  --green:#4ea634; --green-dk:#3d8140; --green-lt:#eef7ea;
+  --bg:#f4f6f9; --card:#fff; --border:#dde3ec;
+  --text:#12233d; --muted:#64748b; --red:#b91c1c; --red-lt:#fef2f2;
+}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:18px}
+.wrap{max-width:1060px;margin:0 auto}
+.top{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.top-lbl{font-size:.68rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.seg{display:inline-flex;background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.seg button{font-family:inherit;border:none;background:transparent;padding:8px 14px;font-size:.83rem;font-weight:700;color:var(--muted);cursor:pointer;transition:background .2s,color .2s}
+.seg button.active{background:var(--navy);color:#fff}
+.complaint{background:#fff8e6;border:1px solid #f5d98a;border-radius:12px;padding:12px 16px;font-size:.88rem;margin-bottom:16px}
+.complaint b{color:#92400e}
+.cols{display:grid;grid-template-columns:340px 1fr;gap:16px}
+@media(max-width:860px){.cols{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.panel-head{padding:11px 16px;background:linear-gradient(135deg,var(--navy),var(--green));color:#fff;font-weight:800;font-size:.8rem;letter-spacing:.5px;text-transform:uppercase}
+.parts{padding:8px}
+.part{display:flex;gap:11px;align-items:flex-start;padding:10px 11px;border-radius:10px;cursor:pointer;transition:background .18s}
+.part:hover{background:var(--navy-lt)}
+.part input{width:17px;height:17px;accent-color:var(--green);cursor:pointer;flex-shrink:0;margin-top:3px}
+.part-name{font-weight:800;font-size:.88rem}
+.part-desc{font-size:.78rem;color:var(--muted);line-height:1.45}
+.actions{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--border)}
+.actions button{flex:1;font-family:inherit;font-weight:700;font-size:.8rem;padding:9px;border:none;border-radius:9px;cursor:pointer;transition:opacity .2s}
+.actions button:hover{opacity:.88}
+.btn-all{background:var(--green);color:#fff}
+.btn-none{background:var(--border);color:var(--text)}
+.meter{padding:12px 16px;border-top:1px solid var(--border)}
+.meter-lbl{display:flex;justify-content:space-between;font-size:.76rem;font-weight:700;color:var(--muted);margin-bottom:6px}
+.meter-bar{height:9px;border-radius:100px;background:var(--navy-lt);overflow:hidden}
+.meter-fill{height:100%;width:0;border-radius:100px;background:linear-gradient(90deg,var(--navy),var(--green));transition:width .35s ease}
+.answer-body{padding:16px 18px;min-height:300px}
+.answer-lbl{font-size:.66rem;font-weight:800;letter-spacing:.9px;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.answer-text{font-size:.93rem;line-height:1.68;white-space:pre-wrap}
+.answer-text.bad{color:#6b7280;font-style:italic}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tag{font-size:.71rem;font-weight:700;padding:4px 10px;border-radius:100px;background:var(--green-lt);color:var(--green-dk);border:1px solid #bfe0b0}
+.tag.warn{background:var(--red-lt);color:var(--red);border-color:#f5c2c2}
+.verdict{margin-top:14px;padding:11px 14px;border-radius:10px;font-size:.85rem;font-weight:700}
+.v-bad{background:var(--red-lt);color:var(--red)}
+.v-mid{background:#fff8e6;color:#92400e}
+.v-good{background:var(--green-lt);color:var(--green-dk)}
+.foot{margin-top:16px;background:var(--navy);color:#e7ecf4;border-radius:14px;padding:14px 18px;font-size:.87rem}
+.foot b{color:#a8dc93}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <span class="top-lbl">Жалоба клиента</span>
+    <div class="seg" role="group" aria-label="Выбор жалобы">
+      <button type="button" class="active" data-case="normal">Обычная</button>
+      <button type="button" data-case="hard">Злая, с требованием денег</button>
+    </div>
+  </div>
+
+  <div class="complaint" id="complaint"></div>
+
+  <div class="cols">
+
+    <div class="panel">
+      <div class="panel-head">Что вы дали помощнику</div>
+      <div class="parts" id="parts">
+        <label class="part"><input type="checkbox" data-part="role">
+          <span><span class="part-name">Роль</span><br><span class="part-desc">Кем он себя считает</span></span></label>
+        <label class="part"><input type="checkbox" data-part="goal">
+          <span><span class="part-name">Цель</span><br><span class="part-desc">Ради чего он отвечает</span></span></label>
+        <label class="part"><input type="checkbox" data-part="instruction">
+          <span><span class="part-name">Инструкция</span><br><span class="part-desc">Порядок действий и формат</span></span></label>
+        <label class="part"><input type="checkbox" data-part="knowledge">
+          <span><span class="part-name">Знания</span><br><span class="part-desc">Регламент компенсаций</span></span></label>
+        <label class="part"><input type="checkbox" data-part="memory">
+          <span><span class="part-name">Память</span><br><span class="part-desc">История этого клиента</span></span></label>
+        <label class="part"><input type="checkbox" data-part="limits">
+          <span><span class="part-name">Ограничения</span><br><span class="part-desc">Что нельзя обещать</span></span></label>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn-all" id="all">Включить всё</button>
+        <button type="button" class="btn-none" id="none">Снять всё</button>
+      </div>
+      <div class="meter">
+        <div class="meter-lbl"><span>Готовность ответа</span><span id="meter-num">0 / 6</span></div>
+        <div class="meter-bar"><div class="meter-fill" id="meter-fill"></div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">Что он ответит клиенту</div>
+      <div class="answer-body">
+        <p class="answer-lbl">Ответ помощника</p>
+        <p class="answer-text" id="answer"></p>
+        <div class="tags" id="tags"></div>
+        <p class="verdict" id="verdict"></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <b>Настройка — час, польза — годы.</b> Ответ меняет не нейросеть, а то, что вы ей дали.
+    Один и тот же вопрос при полной настройке даёт письмо, которое можно отправить не читая.
+  </div>
+
+</div>
+
+<script>
+const CASES = {
+  normal: {
+    text: "<b>Ирина, вчера:</b> «Заказывала у вас сырники на вынос, дома оказалось, что они пересушенные и холодные. Второй раз уже. Неприятно.»",
+    base: "Приносим извинения за доставленные неудобства. Ваше мнение очень важно для нас. Мы обязательно передадим информацию ответственным сотрудникам и примем меры. Благодарим за обратную связь.",
+  },
+  hard: {
+    text: "<b>Ирина, сегодня:</b> «Опять пересушенные сырники! Это уже третий раз. Верните мне деньги за весь заказ, 2400 рублей, иначе напишу отзыв везде где смогу.»",
+    base: "Приносим извинения за доставленные неудобства. Мы вернём вам полную стоимость заказа и дополнительно предоставим скидку 50% на следующий визит. Ваше мнение очень важно для нас.",
+  },
+};
+
+let current = "normal";
+const inputs = [...document.querySelectorAll("[data-part]")];
+const answerEl = document.getElementById("answer");
+const tagsEl = document.getElementById("tags");
+const verdictEl = document.getElementById("verdict");
+const meterFill = document.getElementById("meter-fill");
+const meterNum = document.getElementById("meter-num");
+const complaintEl = document.getElementById("complaint");
+
+function state() {
+  const on = {};
+  inputs.forEach((input) => { on[input.dataset.part] = input.checked; });
+  return on;
+}
+
+function buildAnswer(on) {
+  const hard = current === "hard";
+  const tags = [];
+  let text = "";
+
+  if (!on.role && !on.goal && !on.instruction && !on.knowledge && !on.memory && !on.limits) {
+    return {text: CASES[current].base, tags: [{t: "Отписка", warn: true}], level: "bad"};
+  }
+
+  // Обращение и тон задаёт роль
+  if (on.role) {
+    text += on.memory ? "Ирина, здравствуйте!" : "Здравствуйте!";
+    tags.push({t: "Живой тон", warn: false});
+  } else {
+    text += "Здравствуйте, уважаемый клиент!";
+  }
+
+  // Признание проблемы — инструкция делает его конкретным
+  if (on.instruction) {
+    text += hard
+      ? " Сырники правда были пересушены, и это уже не первый раз — так быть не должно."
+      : " Сырники правда были пересушены — так быть не должно.";
+    tags.push({t: "Конкретика вместо «неудобств»", warn: false});
+  } else {
+    text += " Нам жаль, что так вышло.";
+  }
+
+  // Память — узнаёт постоянного клиента
+  if (on.memory) {
+    text += " Вижу, что вы у нас с марта и заказывали 11 раз — тем более неприятно, что подвели именно вас.";
+    tags.push({t: "Помнит клиента", warn: false});
+  }
+
+  // Инструкция добавляет «что исправлено»
+  if (on.instruction) {
+    text += " Партию сняли, повару указали на нарушение времени прогрева.";
+  }
+
+  // Знания — конкретная компенсация из регламента
+  if (on.knowledge) {
+    text += hard
+      ? " По нашему регламенту при повторной претензии я делаю перерасчёт позиции и добавляю десерт к следующему заказу."
+      : " По регламенту в таком случае я делаю перерасчёт позиции — верну стоимость сырников на карту.";
+    tags.push({t: "Предлагает то, что правда есть", warn: false});
+  } else if (hard) {
+    text += " Вернём вам всю сумму заказа и дадим скидку 50% на следующий.";
+    tags.push({t: "Обещает то, чего не согласовано", warn: true});
+  }
+
+  // Ограничения — не обещает лишнего, зовёт человека
+  if (on.limits && hard) {
+    text += " Возврат всей суммы согласует управляющий — я передала ваш вопрос, с вами свяжутся сегодня до 18:00.";
+    tags.push({t: "Не обещает возврат сам", warn: false});
+  }
+
+  // Цель — приглашение вернуться
+  if (on.goal) {
+    text += hard
+      ? " Очень хочу, чтобы у вас остался нормальный опыт с нами — заходите на неделе, кофе за наш счёт."
+      : " Заходите на этой неделе — сырники будут как надо, кофе за наш счёт.";
+    tags.push({t: "Возвращает клиента", warn: false});
+  }
+
+  // Оценка
+  const core = [on.role, on.goal, on.instruction, on.knowledge].filter(Boolean).length;
+  const dangerous = hard && !on.limits && (on.knowledge === false);
+  let level = "mid";
+  if (core >= 4 && (!hard || on.limits)) level = "good";
+  if (core <= 1 || dangerous) level = "bad";
+
+  return {text, tags, level};
+}
+
+function render() {
+  const on = state();
+  const count = Object.values(on).filter(Boolean).length;
+  meterNum.textContent = `${count} / 6`;
+  meterFill.style.width = `${Math.round((count / 6) * 100)}%`;
+
+  const result = buildAnswer(on);
+  answerEl.textContent = result.text;
+  answerEl.classList.toggle("bad", count === 0);
+
+  tagsEl.innerHTML = "";
+  result.tags.forEach((tag) => {
+    const span = document.createElement("span");
+    span.className = tag.warn ? "tag warn" : "tag";
+    span.textContent = tag.warn ? `⚠ ${tag.t}` : `✓ ${tag.t}`;
+    tagsEl.appendChild(span);
+  });
+
+  const verdicts = {
+    bad: ["v-bad", "Так отвечать нельзя. Именно это большинство и видит, когда пробует нейросеть впервые."],
+    mid: ["v-mid", "Уже лучше, но отправлять рано — не хватает конкретики или рамок."],
+    good: ["v-good", "Это письмо можно отправить клиенту как есть."],
+  };
+  const [cls, message] = verdicts[result.level];
+  verdictEl.className = `verdict ${cls}`;
+  verdictEl.textContent = message;
+}
+
+inputs.forEach((input) => input.addEventListener("change", render));
+document.getElementById("all").addEventListener("click", () => {
+  inputs.forEach((input) => { input.checked = true; });
+  render();
+});
+document.getElementById("none").addEventListener("click", () => {
+  inputs.forEach((input) => { input.checked = false; });
+  render();
+});
+document.querySelectorAll(".seg button").forEach((button) => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".seg button").forEach((other) => other.classList.remove("active"));
+    button.classList.add("active");
+    current = button.dataset.case;
+    complaintEl.innerHTML = CASES[current].text;
+    render();
+  });
+});
+
+complaintEl.innerHTML = CASES.normal.text;
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ИИ как помощник предпринимателя — реальные сценарии применения</title>
+<meta name="description" content="Вебинар для предпринимателей атомных городов: что помощник уже умеет, из чего он собран и с какого процесса начать.">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  /* Палитра ведётся от знака «Просто делай»: тёмно-синий → зелёный */
+  --navy:#1a3054;
+  --navy-dk:#12233d;
+  --navy-lt:#e8edf5;
+  --green:#4ea634;
+  --green-dk:#3d8140;
+  --green-lt:#eef7ea;
+  --bg:#f4f6f9;
+  --card:#ffffff;
+  --border:#dde3ec;
+  --text:#12233d;
+  --muted:#64748b;
+  --amber:#b45309;
+  --amber-lt:#fff8e6;
+  --red:#b91c1c;
+  --red-lt:#fef2f2;
+  --nav-h:56px;
+}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{
+  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+  background:
+    radial-gradient(circle at 12% 0%,rgba(26,48,84,.10),transparent 34%),
+    radial-gradient(circle at 86% 5%,rgba(78,166,52,.12),transparent 34%),
+    linear-gradient(180deg,#f8fafc 0%,#eef3f7 32%,#f8fafc 100%);
+  color:var(--text);line-height:1.65;overflow-x:hidden;
+}
+
+/* NAV */
+nav.top{
+  position:fixed;top:0;left:0;right:0;height:var(--nav-h);
+  background:rgba(255,255,255,.97);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);box-shadow:0 1px 10px rgba(0,0,0,.06);
+  display:flex;align-items:center;padding:0 18px;z-index:900;
+  gap:2px;overflow-x:auto;scrollbar-width:none;
+}
+nav.top::-webkit-scrollbar{display:none}
+.nav-brand{display:flex;align-items:center;gap:9px;flex-shrink:0;margin-right:8px;text-decoration:none}
+.nav-brand img{height:30px;width:auto;display:block}
+.nav-brand span{font-weight:900;font-size:.86rem;color:var(--navy);white-space:nowrap}
+.nav-sep{width:1px;height:18px;background:var(--border);margin:0 7px;flex-shrink:0}
+.nav-link{padding:5px 10px;border-radius:6px;font-size:.75rem;font-weight:700;color:var(--muted);text-decoration:none;white-space:nowrap;transition:color .2s,background .2s;flex-shrink:0}
+.nav-link:hover,.nav-link.active{color:var(--green-dk);background:var(--green-lt)}
+.nav-link:focus-visible,a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+
+/* HERO */
+#hero{min-height:100vh;padding:calc(var(--nav-h) + 48px) 24px 60px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.hero-badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:22px}
+.hero-badge{padding:5px 14px;background:var(--navy-lt);border:1px solid #c4d0e2;border-radius:100px;font-size:.78rem;font-weight:700;color:var(--navy)}
+.hero-badge.accent{background:var(--green-lt);border-color:#bfe0b0;color:var(--green-dk)}
+.hero-title{font-size:clamp(2rem,5.5vw,3.6rem);font-weight:900;line-height:1.12;letter-spacing:-1.5px;margin-bottom:16px;max-width:940px}
+.hero-title em{font-style:normal;background:linear-gradient(135deg,var(--navy),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{font-size:1.06rem;color:var(--muted);max-width:680px;margin-bottom:34px}
+.hero-img{max-width:920px;width:100%;margin-bottom:36px}
+.hero-nav{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;max-width:860px}
+.hero-nav a{padding:8px 15px;border-radius:10px;background:var(--card);border:1px solid var(--border);font-size:.81rem;font-weight:600;color:var(--text);text-decoration:none;box-shadow:0 2px 8px rgba(18,35,61,.05);transition:transform .15s,box-shadow .15s}
+.hero-nav a:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(78,166,52,.18)}
+
+/* SECTIONS */
+.sec{max-width:1180px;margin:0 auto;padding:70px 24px}
+.sec-head{margin-bottom:32px}
+.num-badge{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:13px;font-size:1.1rem;font-weight:900;color:#fff;margin-bottom:14px}
+.n1{background:linear-gradient(135deg,#1a3054,#2d4a70)}
+.n2{background:linear-gradient(135deg,#1f4153,#3a7c43)}
+.n3{background:linear-gradient(135deg,#244c51,#4a9d35)}
+.n4{background:linear-gradient(135deg,#2e634d,#4ea634)}
+.n5{background:linear-gradient(135deg,#3d8140,#7cc95f)}
+.n6{background:linear-gradient(135deg,#1a3054,#4ea634)}
+.n7{background:linear-gradient(135deg,#7c2d12,#b45309)}
+.n8{background:linear-gradient(135deg,#12233d,#3d8140)}
+.n9{background:linear-gradient(135deg,#2d4a70,#4ea634)}
+.badge-flat{background:var(--navy-lt);color:var(--navy);font-size:1.2rem}
+.sec-title{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;letter-spacing:-.5px;margin-bottom:10px}
+.sec-desc{font-size:1rem;color:var(--muted);max-width:780px;line-height:1.75}
+.sec-desc + .sec-desc{margin-top:10px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;box-shadow:0 2px 10px rgba(18,35,61,.04)}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:14px;margin-bottom:22px}
+.grid .c-name{font-weight:800;margin-bottom:7px;font-size:.96rem}
+.grid p:not(.c-name){color:var(--muted);font-size:.88rem;line-height:1.6}
+
+/* DEMO CARDS (агенты) */
+.agents{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px}
+.agent{background:var(--card);border:1px solid var(--border);border-radius:15px;padding:18px 20px;box-shadow:0 2px 10px rgba(18,35,61,.04);border-top:3px solid var(--green)}
+.agent-num{font-size:.68rem;font-weight:800;letter-spacing:.9px;text-transform:uppercase;color:var(--green-dk);margin-bottom:5px}
+.agent-name{font-weight:800;font-size:1rem;margin-bottom:7px}
+.agent-what{font-size:.87rem;color:var(--muted);line-height:1.6;margin-bottom:9px}
+.agent-hook{font-size:.83rem;background:var(--green-lt);border-radius:8px;padding:8px 11px;color:var(--green-dk);font-weight:600}
+
+/* CALLOUTS */
+.note-callout{background:var(--navy-lt);border:1px solid #c4d0e2;border-radius:14px;padding:16px 20px;margin-bottom:22px}
+.note-callout p{color:var(--navy);font-size:.92rem;line-height:1.7}
+.warn-callout{background:var(--amber-lt);border:1px solid #f5d98a;border-radius:16px;padding:19px 23px;margin-top:20px}
+.warn-callout p{color:#78350f;line-height:1.7;font-size:.93rem}
+.warn-callout strong{display:block;margin-bottom:4px}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:14px;background:var(--card);margin-bottom:20px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:.89rem}
+th,td{padding:11px 15px;text-align:left;border-bottom:1px solid var(--border)}
+th{background:#f7f9fc;font-weight:800;font-size:.78rem;letter-spacing:.4px;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:none}
+td.zone-g{color:var(--green-dk);font-weight:700}
+td.zone-a{color:var(--amber);font-weight:700}
+td.zone-r{color:var(--red);font-weight:700}
+
+/* IMAGE CARD */
+.img-card{position:relative;border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(18,35,61,.12);cursor:zoom-in;margin-bottom:22px}
+.img-card img{display:block;width:100%;height:auto}
+.img-card .img-missing-caption{display:none}
+.img-card.img-missing{border:2px dashed var(--border);background:var(--navy-lt);min-height:210px;display:flex;align-items:center;justify-content:center;box-shadow:none;cursor:default}
+.img-card.img-missing img{display:none}
+.img-card.img-missing .img-missing-caption{display:block;color:var(--muted);font-size:.85rem;text-align:center;padding:24px;max-width:360px}
+
+/* VIZ CARD */
+.viz{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.07);margin-bottom:20px}
+.viz-bar{display:flex;align-items:center;gap:10px;padding:9px 14px;background:#f7f9fc;border-bottom:1px solid var(--border)}
+.dots{display:flex;gap:5px}
+.dot{width:10px;height:10px;border-radius:50%}
+.dr{background:#ff5f57}.dy{background:#febb2c}.dg{background:#27c840}
+.viz-lbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);flex:1}
+.viz-fs{display:flex;align-items:center;gap:5px;padding:4px 10px;background:transparent;border:1px solid var(--border);border-radius:6px;font-size:.71rem;font-weight:600;color:var(--muted);cursor:pointer;transition:background .2s,color .2s,border-color .2s;white-space:nowrap;font-family:inherit}
+.viz-fs:hover{background:var(--green-lt);color:var(--green-dk);border-color:#bfe0b0}
+.viz iframe{width:100%;border:none;display:block}
+
+/* PROMPT BOX */
+.prompt-box{background:#12233d;border-radius:14px;overflow:hidden;margin-bottom:16px}
+.prompt-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px;background:#1d3454;color:#e2e8f0;font-size:.82rem;font-weight:700}
+.copy-btn{padding:5px 12px;border-radius:8px;border:1px solid #3f5a80;background:transparent;color:#e2e8f0;font-size:.76rem;font-weight:700;cursor:pointer;transition:background .2s;font-family:inherit;white-space:nowrap}
+.copy-btn:hover{background:#2a4468}
+.prompt-box pre{margin:0;padding:17px 16px;color:#e2e8f0;font-size:.82rem;line-height:1.62;overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+
+/* OVERLAYS */
+.overlay{position:fixed;inset:0;background:rgba(18,35,61,.93);z-index:2000;display:flex;align-items:center;justify-content:center;padding:32px;opacity:0;pointer-events:none;transition:opacity .2s}
+.overlay.open{opacity:1;pointer-events:auto}
+.overlay img{max-width:100%;max-height:100%;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.overlay-close{position:absolute;top:18px;right:22px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;font-family:inherit}
+.overlay-close:hover{background:rgba(255,255,255,.22)}
+.overlay-download{position:absolute;top:18px;right:72px;height:40px;padding:0 16px;border-radius:20px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:.82rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;z-index:2}
+.overlay-download:hover{background:rgba(255,255,255,.22)}
+#fs-overlay{position:fixed;inset:0;background:rgba(6,14,26,.95);z-index:2100;display:none;flex-direction:column}
+#fs-overlay.open{display:flex}
+#fs-bar{display:flex;align-items:center;gap:12px;padding:10px 16px;background:rgba(0,0,0,.4);border-bottom:1px solid rgba(255,255,255,.08)}
+#fs-title{font-size:.8rem;font-weight:700;color:rgba(255,255,255,.65);flex:1}
+#fs-close{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.8);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit}
+#fs-close:hover{background:rgba(255,255,255,.2)}
+#fs-frame{flex:1;border:none;background:#fff}
+
+/* CHECKLIST */
+.checklist-progress-bar{height:10px;border-radius:100px;background:var(--navy-lt);overflow:hidden;margin-bottom:20px}
+.checklist-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--navy),var(--green));border-radius:100px;transition:width .3s ease}
+.checklist-items{list-style:none;display:flex;flex-direction:column;gap:12px}
+.checklist-items label{display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:.95rem}
+.checklist-items input{width:18px;height:18px;accent-color:var(--green);cursor:pointer;flex-shrink:0;margin-top:4px}
+.checklist-done{margin-top:18px;padding:12px 16px;background:var(--green-lt);color:var(--green-dk);border-radius:10px;font-weight:700}
+
+/* QUIZ */
+.quiz{display:flex;flex-direction:column;gap:16px}
+.quiz-question{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 22px}
+.quiz-text{font-weight:700;margin-bottom:12px}
+.quiz-options{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.quiz-options label{display:flex;align-items:flex-start;gap:8px;font-size:.92rem;cursor:pointer}
+.quiz-options input{accent-color:var(--green);margin-top:5px;flex-shrink:0}
+.quiz-options label.quiz-correct-answer{color:var(--green-dk);font-weight:700}
+.quiz-check{padding:8px 17px;border-radius:9px;border:none;background:var(--navy);color:#fff;font-weight:700;font-size:.82rem;cursor:pointer;font-family:inherit}
+.quiz-check:hover{background:var(--navy-dk)}
+.quiz-check:disabled{opacity:.5;cursor:not-allowed}
+.quiz-feedback{margin-top:12px;padding:10px 14px;border-radius:8px;font-size:.9rem}
+.quiz-feedback.correct{background:var(--green-lt);color:var(--green-dk)}
+.quiz-feedback.incorrect{background:var(--red-lt);color:var(--red)}
+.quiz-score-box{text-align:center;font-weight:800;color:var(--navy);margin-top:18px}
+
+/* CONCLUSION */
+.conclusion-list{list-style:none;counter-reset:concl;display:flex;flex-direction:column;gap:14px}
+.conclusion-list li{counter-increment:concl;padding-left:38px;position:relative;font-size:1rem}
+.conclusion-list li::before{content:counter(concl);position:absolute;left:0;top:-1px;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--green));color:#fff;font-size:.8rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+
+.svc-link{color:var(--green-dk);font-weight:700;text-decoration:underline;text-underline-offset:2px}
+.svc-link:hover{color:var(--navy)}
+
+/* REVEAL */
+.fade{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.fade.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.fade{opacity:1;transform:none;transition:none}}
+@media (max-width:900px){.sec{padding:54px 18px}}
+
+/* FOOTER */
+footer{background:var(--navy);color:#cfd8e6;margin-top:40px;padding:44px 24px 34px}
+.foot-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:start}
+@media(max-width:760px){.foot-inner{grid-template-columns:1fr}}
+.foot-brand{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.foot-brand img{height:52px;width:auto;background:#fff;border-radius:10px;padding:6px}
+.foot-name{font-weight:900;font-size:1.05rem;color:#fff}
+.foot-role{font-size:.84rem;color:#9fb0c9}
+.foot-links{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+.foot-links a{padding:7px 15px;border-radius:100px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);color:#fff;font-size:.83rem;font-weight:700;text-decoration:none;transition:background .2s}
+.foot-links a:hover{background:var(--green)}
+.foot-side{text-align:center}
+.foot-side img{height:88px;width:auto;background:#fff;border-radius:12px;padding:8px}
+.foot-side p{font-size:.76rem;color:#9fb0c9;margin-top:8px;max-width:170px}
+.foot-bottom{max-width:1180px;margin:26px auto 0;padding-top:18px;border-top:1px solid rgba(255,255,255,.12);font-size:.8rem;color:#8fa2bd;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<nav class="top" aria-label="Навигация по странице">
+  <a class="nav-brand" href="#hero">
+    <img src="assets/logo_prosto_delay.svg" alt="Просто делай">
+    <span>Просто делай</span>
+  </a>
+  <span class="nav-sep"></span>
+  <a class="nav-link" href="#s1">Чат или помощник</a>
+  <a class="nav-link" href="#s2">Из чего собран</a>
+  <a class="nav-link" href="#s3">Знания</a>
+  <a class="nav-link" href="#s4">Инструменты</a>
+  <a class="nav-link" href="#s5">Skills</a>
+  <a class="nav-link" href="#s6">MCP</a>
+  <a class="nav-link" href="#s7">Контроль и деньги</a>
+  <a class="nav-link" href="#s8">Первый помощник</a>
+  <a class="nav-link" href="#s9">Где брать</a>
+  <a class="nav-link" href="#checklist">Чек-лист</a>
+  <a class="nav-link" href="#quiz">Проверить себя</a>
+</nav>
+
+<header id="hero">
+  <div class="hero-badges">
+    <span class="hero-badge">Вебинар · 120 минут</span>
+    <span class="hero-badge">Для предпринимателей атомных городов</span>
+    <span class="hero-badge accent">Десять живых демо</span>
+  </div>
+  <h1 class="hero-title">ИИ как <em>помощник предпринимателя</em>: реальные сценарии применения</h1>
+  <p class="hero-sub">К концу вебинара вы будете знать, какой процесс отдать помощнику первым и что нажать в понедельник утром. Не теория — каждые восемь минут работающий агент на экране.</p>
+
+  <figure class="img-card hero-img" data-lightbox>
+    <img src="png/prezentaciya/01_obzor.png" alt="Обзорная схема вебинара: что помощник уже делает, из чего он состоит и три шага внедрения" loading="lazy" onerror="this.closest('.img-card').classList.add('img-missing')">
+    <figcaption class="img-missing-caption">Обзорная инфографика вебинара (промпт 01 из плана)</figcaption>
+  </figure>
+
+  <nav class="hero-nav" aria-label="Разделы страницы">
+    <a href="#s1">Чем агент отличается от чата</a>
+    <a href="#s2">Собрать помощника</a>
+    <a href="#s3">Чтобы не выдумывал</a>
+    <a href="#s7">Посчитать выгоду</a>
+    <a href="#s8">С чего начать</a>
+    <a href="#quiz">Проверить себя</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ══════════ 1. ЧАТ ИЛИ ПОМОЩНИК ══════════ -->
+<section class="sec" id="s1">
+  <div class="sec-head fade">
+    <div class="num-badge n1">1</div>
+    <h2 class="sec-title">Чат отвечает — помощник делает</h2>
+    <p class="sec-desc">Половина тех, кто пробовал нейросеть и разочаровался, разговаривала с чатом. Чат отвечает на вопрос. Помощник доводит задачу до результата: сам выбирает шаги, сам лезет в ваши документы, сам собирает готовый документ.</p>
+    <p class="sec-desc">Простой тест: если после ответа надо что-то доделывать руками — это был чат.</p>
+  </div>
+
+  <div class="viz fade">
+    <div class="viz-bar">
+      <div class="dots"><span class="dot dr"></span><span class="dot dy"></span><span class="dot dg"></span></div>
+      <span class="viz-lbl">Одна заявка — два результата</span>
+      <button type="button" class="viz-fs" data-fs-src="web/chat_vs_agent.html" data-fs-title="Чат или помощник: одна заявка, два результата">⛶ На весь экран</button>
+    </div>
+    <iframe src="web/chat_vs_agent.html" height="620" loading="lazy" title="Сравнение чата и помощника на одной заявке"></iframe>
+  </div>
+
+  <figure class="img-card fade" data-lightbox>
+    <img src="png/prezentaciya/02_chat_vs_agent.png" alt="Сравнение: чат делает один шаг и выдаёт текст, помощник проходит цепочку шагов и выдаёт готовый документ" loading="lazy" onerror="this.closest('.img-card').classList.add('img-missing')">
+    <figcaption class="img-missing-caption">Чат против помощника (промпт 02 из плана)</figcaption>
+  </figure>
+
+  <div class="grid fade">
+    <div class="card">
+      <p class="c-name">Сколько шагов 🔁</p>
+      <p>Чат — один. Помощник — столько, сколько нужно, и решает это сам.</p>
+    </div>
+    <div class="card">
+      <p class="c-name">Чем пользуется 🧰</p>
+      <p>Чат — только тем, что знает. Помощник — вашими файлами, почтой, сайтами, таблицами.</p>
+    </div>
+    <div class="card">
+      <p class="c-name">Что на выходе 📄</p>
+      <p>Чат — текст, который вы дорабатываете. Помощник — документ, который можно отправлять.</p>
+    </div>
+  </div>
+
+  <div class="warn-callout fade">
+    <p><strong>Где это не работает</strong>Помощник не заменит личный разговор с клиентом, не примет решение о цене и не возьмёт на себя ответственность. Он снимает рутину вокруг решения, а не само решение.</p>
+  </div>
+</section>
+
+<!-- ══════════ 2. ИЗ ЧЕГО СОБРАН ══════════ -->
+<section class="sec" id="s2">
+  <div class="sec-head fade">
+    <div class="num-badge n2">2</div>
+    <h2 class="sec-title">Из чего собран помощник</h2>
+    <p class="sec-desc">Качество ответа — не везение. Это следствие того, что вы дали помощнику. Шесть частей: роль, цель, инструкция, знания, память, ограничения. Включайте их по одной в конструкторе ниже — и смотрите, как отписка превращается в письмо, которое можно отправить не читая.</p>
+  </div>
+
+  <div class="viz fade">
+    <div class="viz-bar">
+      <div class="dots"><span class="dot dr"></span><span class="dot dy"></span><span class="dot dg"></span></div>
+      <span class="viz-lbl">Конструктор помощника</span>
+      <button type="button" class="viz-fs" data-fs-src="web/konstruktor_agenta.html" data-fs-title="Конструктор помощника: соберите его по частям">⛶ На весь экран</button>
+    </div>
+    <iframe src="web/konstruktor_agenta.html" height="700" loading="lazy" title="Конструктор помощника из шести частей"></iframe>
+  </div>
+
+  <figure class="img-card fade" data-lightbox>
+    <img src="png/prezentaciya/03_shest_chastey.png" alt="Шесть частей помощника: роль, цель, инструкция, знания, память, ограничения" loading="lazy" onerror="this.closest('.img-card').classList.add('img-missing')">
+    <figcaption class="img-missing-caption">Шесть частей помощника (промпт 03 из плана)</figcaption>
+  </figure>
+
+  <div class="note-callout fade">
+    <p><strong>Пропорция, которую стоит запомнить:</strong> на настройку уходит час, пользуетесь годами. Час, потраченный на эти шесть пунктов, окупается на третьем клиенте.</p>
+  </div>
+
+  <div class="prompt-box fade">
+    <div class="prompt-head">
+      <span>Заготовка помощника — подставьте своё</span>
+      <button type="button" class="copy-btn" data-copy="prompt-base">Копировать</button>
+    </div>
+    <pre id="prompt-base">РОЛЬ: Ты — [должность] в [чем занимается компания] в городе на [N] тысяч жителей.
+
+ЦЕЛЬ: [ради чего ты это делаешь — не «ответить», а «вернуть клиента» / «закрыть заявку продажей»].
+
+ИНСТРУКЦИЯ:
+1. [первое действие]
+2. [второе действие]
+3. [третье действие]
+Формат ответа: [объём, тон, чего избегать].
+
+ЗНАНИЯ: используй только приложенные файлы — [прайс, регламент, скрипты].
+Если данных не хватает — так и скажи, не придумывай.
+
+ОГРАНИЧЕНИЯ:
+- никогда не обещай [скидки, возвраты, сроки], это решаю я;
+- если клиент требует [X] — передай мне и напиши, что со мной свяжутся;
+- не выдумывай цены и сроки, которых нет в файлах.</pre>
+  </div>
+</section>
+
+<!-- ══════════ 3. ЗНАНИЯ ══════════ -->
+<section class="sec" id="s3">
+  <div class="sec-head fade">
+    <div class="num-badge n3">3</div>
+    <h2 class="sec-title">Знания: чтобы не выдумывал</h2>
+    <p class="sec-desc">Нейросеть — очень начитанный человек, который никогда не работал в вашей компании. Он прочитал полмиллиона страниц про заборы и ни одной строчки вашего прайса. Когда вы спрашиваете цену, он делает то, что сделал бы вежливый эрудит: называет правдоподобную. Не врёт — достраивает.</p>
+    <p class="sec-desc">Лечится одним способом: дать документы. Приложили прайс — берёт цены оттуда и показывает, из какой строки.</p>
+  </div>
+
+  <figure class="img-card fade" data-lightbox>
+    <img src="png/prezentaciya/04_otkuda_vranyo.png" alt="Слева: без документов помощник называет выдуманную цену. Справа: с прайсом называет вашу цену и показывает источник" loading="lazy" onerror="this.closest('.img-card').classList.add('img-missing')">
+    <figcaption class="img-missing-caption">Откуда берётся враньё и как лечится (промпт 04 из плана)</figcaption>
+  </figure>
+
+  <div class="grid fade">
+    <div class="card">
+      <p class="c-name">Что загрузить 📁</p>
+      <p>Прайс, регламенты, скрипты продаж, ответы на частые вопросы, инструкции, договоры-шаблоны.</p>
+    </div>
+    <div class="card">
+      <p class="c-name">Ничего не переписывайте ✍️</p>
+      <p>Загружайте как есть — файлами. У вас всё уже написано, просто лежит в папке, куда никто не заглядывает.</p>
+    </div>
+    <div class="card">
+      <p class="c-name">Требуйте источник 🔍</p>
+      <p>Добавьте в инструкцию «показывай, откуда взял». Проверять станет вчетверо быстрее.</p>
+    </div>
+    <div class="card">
+      <p class="c-name">Поменялся прайс 🔄</p>
+      <p>Просто замените файл. Переучивать ничего не надо — помощник читает актуальную версию.</p>
+    </div>
+  </div>
+
+  <div class="warn-callout fade">
+    <p><strong>Что остаётся за человеком</strong>Если в ваших документах ошибка — помощник её повторит и озвучит уверенным тоном. Он отвечает за поиск в документах, вы — за то, что в них написано.</p>
+  </div>
+</section>
+
+<!-- ══════════ 4. ИНСТРУМЕНТЫ ══════════ -->
+<section class="sec" id="s4">
+  <div class="sec-head fade">
+    <div class="num-badge n4">4</div>
+    <h2 class="sec-title">Инструменты: выходит за пределы чата</h2>
+    <p class="sec-desc">Инструмент — то, чем помощник умеет пользоваться, кроме собственной головы: поиск, ваша почта, таблицы, календарь, папка с файлами, запись встреч.</p>
+    <p class="sec-desc">До инструментов помощник — консультант по телефону: посоветует, но ничего не сделает. С инструментами он становится сотрудником, у которого есть доступы.</p>
+  </div>
+
+  <figure class="img-card fade" data-lightbox>
+    <img src="png/prezentaciya/05_instrumenty.png" alt="Помощник в центре и подключённые инструменты: почта, таблицы, календарь, файлы, поиск, запись встреч" loading="lazy" onerror="this.closest('.img-card').classList.add('img-missing')">
+    <figcaption class="img-missing-caption">Инструменты помощника (промпт 05 из плана)</figcaption>
+  </figure>
+
+  <div class="prompt-box fade">
+    <div class="prompt-head">
+      <span>Промпт: протокол планёрки из записи</span>
+      <button type="button" class="copy-btn" data-copy="prompt-protocol">Копировать</button>
+    </div>
+    <pre id="prompt-protocol">Расшифруй запись совещания и сделай протокол.
+
+Формат:
+1. РЕШЕНИЯ — что окончательно решили, по пунктам.
+2. ЗАДАЧИ — таблица: задача | ответственный | срок.
+3. ОТКРЫТЫЕ ВОПРОСЫ — что осталось без решения.
+4. СПОРНОЕ — где мнения разошлись и кто что предлагал.
+
+Если срок или ответственный не названы явно — пиши «не назначен»,
+не додумывай. Реплики не пересказывай, только результат.</pre>
+  </div>
+
+  <div class="prompt-box fade">
+    <div class="prompt-head">
+      <span>Промпт: сравнение предложений поставщиков</span>
+      <button type="button" class="copy-btn" data-copy="prompt-postavshiki">Копировать</button>
+    </div>
+    <pre id="prompt-postavshiki">Найди в почте письма от поставщиков за последние 7 дней.
+
+Собери таблицу: поставщик | позиция | цена за единицу | срок поставки |
+условия оплаты | минимальная партия.
+
+Отсортируй по цене. Отдельно отметь:
+- где цена выше средней больше чем на 20%;
+- где не указан срок поставки;
+- где условия изменились по сравнению с прошлым письмом.
+
+Пришли файлом. Ничего не отправляй поставщикам без моего слова.</pre>
+  </div>
+
+  <div class="warn-callout fade">
+    <p><strong>Граница</strong>Он ошибается: не так понял письмо, взял не тот прайс, посчитал не то. Поэтому право отправлять письма клиентам и платить деньги ему не дают. Черновик — ему, кнопка «отправить» — вам.</p>
+  </div>
+</section>
+
+<!-- ══════════ 5. SKILLS ══════════ -->
+<section class="sec" id="s5">
+  <div class="sec-head fade">
+    <div class="num-badge n5">5</div>
+    <h2 class="sec-title">Skills: упакованное умение</h2>
+    <p class="sec-desc">Один раз описали процесс — дальше вызываете его в два слова. Skill — это обычный текст: когда применять, что делать по шагам, каких ошибок избегать, как выглядит хороший результат. Не программа.</p>
+    <p class="sec-desc">Если вы когда-нибудь писали инструкцию для нового сотрудника — вы уже умеете делать skills. Разница только в том, кто её читает.</p>
+  </div>
+
+  <figure class="img-card fade" data-lightbox>
+    <img src="png/prezentaciya/06_skills.png" alt="Слева страница подробного задания, справа — упакованное умение, вызываемое одной фразой" loading="lazy" onerror="this.closest('.img-card').classList.add('img-missing')">
+    <figcaption class="img-missing-caption">Skills: от страницы задания к двум словам (промпт 06 из плана)</figcaption>
+  </figure>
+
+  <div class="tbl-wrap fade">
+    <table>
+      <thead><tr><th>Уровень</th><th>Что это</th><th>Аналогия из вашей практики</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Промпт</strong></td><td>Разовая просьба</td><td>Попросить коллегу сделать что-то один раз</td></tr>
+        <tr><td><strong>Skill</strong></td><td>Записанный процесс</td><td>Инструкция на стене, к которой сотрудник обращается сам</td></tr>
+        <tr><td><strong>Агент</strong></td><td>Роль целиком: знания, инструменты, умения, зона ответственности</td><td>Сотрудник на должности</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note-callout fade">
+    <p><strong>Что упаковывать первым.</strong> Процесс повторяется чаще раза в неделю · результат всегда в одном формате · вы объясняли это сотруднику больше одного раза · вы делаете это по вечерам, потому что днём некогда. Сошлись три пункта из четырёх — это ваш первый skill.</p>
+  </div>
+</section>
+
+<!-- ══════════ 6. MCP ══════════ -->
+<section class="sec" id="s6">
+  <div class="sec-head fade">
+    <div class="num-badge n6">6</div>
+    <h2 class="sec-title">MCP: помощник внутри ваших систем</h2>
+    <p class="sec-desc">MCP — стандарт подключения помощника к сервисам. Раньше каждое подключение писали руками под конкретную пару «этот ИИ — эта программа»: как если бы к каждой розетке нужен был свой переходник. MCP — общая вилка: сервис сделал разъём один раз, и к нему подключается любой помощник.</p>
+  </div>
+
+  <figure class="img-card fade" data-lightbox>
+    <img src="png/prezentaciya/07_mcp.png" alt="Слева путаница разных переходников, справа один стандартный разъём с аккуратно подключёнными сервисами" loading="lazy" onerror="this.closest('.img-card').classList.add('img-missing')">
+    <figcaption class="img-missing-caption">MCP как универсальная розетка (промпт 07 из плана)</figcaption>
+  </figure>
+
+  <div class="tbl-wrap fade">
+    <table>
+      <thead><tr><th>Статус</th><th>Что подключается</th></tr></thead>
+      <tbody>
+        <tr><td class="zone-g">Работает</td><td>Почта, календари, таблицы, файловые хранилища, мессенджеры, поиск по сайтам</td></tr>
+        <tr><td class="zone-a">С оговорками</td><td>CRM и отраслевые сервисы — коннекторы есть, но часть сырая, нужен человек с техническими руками</td></tr>
+        <tr><td class="zone-r">Пока нет</td><td>Глубокая интеграция с учётными системами без разработчика</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="warn-callout fade">
+    <p><strong>Честно про этот блок</strong>Это самая молодая часть из всего, что вы сегодня видели. Если завтра пойдёте подключать помощника к 1С — понадобится технический специалист. Показываю направление, а не то, с чего начинать.</p>
+  </div>
+</section>
+
+<!-- ══════════ 7. КОНТРОЛЬ И ДЕНЬГИ ══════════ -->
+<section class="sec" id="s7">
+  <div class="sec-head fade">
+    <div class="num-badge n7">7</div>
+    <h2 class="sec-title">Контроль, риски и деньги</h2>
+    <p class="sec-desc">Главное правило первых двух месяцев: генерация — ему, отправка — вам. Помощник готовит письмо и показывает; кнопку нажимаете вы. Дальше границу можно двигать — но только после того, как увидите сотню его ответов.</p>
+  </div>
+
+  <figure class="img-card fade" data-lightbox>
+    <img src="png/prezentaciya/08_zony_dostupa.png" alt="Светофор доступа: зелёная зона — делает сам, жёлтая — делает и показывает, красная — не трогает" loading="lazy" onerror="this.closest('.img-card').classList.add('img-missing')">
+    <figcaption class="img-missing-caption">Три зоны доступа (промпт 08 из плана)</figcaption>
+  </figure>
+
+  <div class="tbl-wrap fade">
+    <table>
+      <thead><tr><th>Зона</th><th>Правило</th><th>Примеры</th></tr></thead>
+      <tbody>
+        <tr><td class="zone-g">Зелёная</td><td>Делает сам</td><td>Черновики, расшифровки, разборы конкурентов, поиск, аналитика</td></tr>
+        <tr><td class="zone-a">Жёлтая</td><td>Делает и показывает</td><td>Письма клиентам, ответы на отзывы, документы и счета</td></tr>
+        <tr><td class="zone-r">Красная</td><td>Не трогает</td><td>Платежи, договоры, персональные данные клиентов, кадровые решения, обещания скидок</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note-callout fade">
+    <p><strong>Персональные данные.</strong> Паспорта, телефоны и адреса клиентов в облачный сервис не загружаем. Для чувствительного — модель, работающая на вашем компьютере: запись и документы никуда не уходят. Сомневаетесь — обезличивайте: «Клиент А» вместо фамилии.</p>
+  </div>
+
+  <div class="viz fade">
+    <div class="viz-bar">
+      <div class="dots"><span class="dot dr"></span><span class="dot dy"></span><span class="dot dg"></span></div>
+      <span class="viz-lbl">Калькулятор экономии</span>
+      <button type="button" class="viz-fs" data-fs-src="web/kalkulyator_ekonomii.html" data-fs-title="Калькулятор: сколько сэкономит помощник">⛶ На весь экран</button>
+    </div>
+    <iframe src="web/kalkulyator_ekonomii.html" height="680" loading="lazy" title="Калькулятор экономии от внедрения помощника"></iframe>
+  </div>
+
+  <div class="warn-callout fade">
+    <p><strong>Где помощник дороже человека</strong>Разовые задачи, всё, что требует личного контакта, и всё, где ошибка стоит дороже экономии. Процесс, который вы делаете раз в квартал, автоматизировать не надо: настройка съест больше, чем сэкономит.</p>
+  </div>
+</section>
+
+<!-- ══════════ 8. ПЕРВЫЙ ПОМОЩНИК ══════════ -->
+<section class="sec" id="s8">
+  <div class="sec-head fade">
+    <div class="num-badge n8">8</div>
+    <h2 class="sec-title">Ваш первый помощник: сегодня, за неделю, за месяц</h2>
+    <p class="sec-desc">Порядок нарушать нельзя. Девять из десяти провалов — попытка начать с третьей ступени: подключить к учётной системе, не сделав ни одного рабочего текста.</p>
+  </div>
+
+  <div class="viz fade">
+    <div class="viz-bar">
+      <div class="dots"><span class="dot dr"></span><span class="dot dy"></span><span class="dot dg"></span></div>
+      <span class="viz-lbl">Какой процесс отдать первым</span>
+      <button type="button" class="viz-fs" data-fs-src="web/matrica_processov.html" data-fs-title="Матрица: какой процесс отдать помощнику первым">⛶ На весь экран</button>
+    </div>
+    <iframe src="web/matrica_processov.html" height="700" loading="lazy" title="Матрица выбора процесса для первого пилота"></iframe>
+  </div>
+
+  <figure class="img-card fade" data-lightbox>
+    <img src="png/prezentaciya/09_lestnica.png" alt="Три ступени внедрения: сегодня за 15 минут, за неделю, за месяц" loading="lazy" onerror="this.closest('.img-card').classList.add('img-missing')">
+    <figcaption class="img-missing-caption">Лестница внедрения (промпт 09 из плана)</figcaption>
+  </figure>
+
+  <div class="grid fade">
+    <div class="card">
+      <p class="c-name">Сегодня · 15 минут ⚡</p>
+      <p>Откройте помощника, дайте роль, цель и один документ. Сделайте один настоящий рабочий текст. Цель — не автоматизация, а первое «работает».</p>
+    </div>
+    <div class="card">
+      <p class="c-name">За неделю ⚙️</p>
+      <p>Выберите процесс по матрице. Опишите шесть частей. Загрузите документы. Прогоните двадцать раз на реальных задачах и поправьте инструкцию. Замерьте время до и после.</p>
+    </div>
+    <div class="card">
+      <p class="c-name">За месяц 📦</p>
+      <p>Упакуйте в skill. Дайте инструменты. Поставьте подтверждение на жёлтой зоне. Назначьте ответственного и метрику. Только теперь думайте про подключение к системам.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 9. ГДЕ БРАТЬ ══════════ -->
+<section class="sec" id="s9">
+  <div class="sec-head fade">
+    <div class="num-badge n9">9</div>
+    <h2 class="sec-title">Где брать готовое</h2>
+    <p class="sec-desc">Начните с того, что открывается в браузере без карты. Переходите дальше, только когда упрётесь в конкретное ограничение — а не потому, что где-то написано, что там круче.</p>
+  </div>
+
+  <div class="viz fade">
+    <div class="viz-bar">
+      <div class="dots"><span class="dot dr"></span><span class="dot dy"></span><span class="dot dg"></span></div>
+      <span class="viz-lbl">Карта сервисов</span>
+      <button type="button" class="viz-fs" data-fs-src="web/karta_servisov.html" data-fs-title="Карта сервисов: с чего начать и куда расти">⛶ На весь экран</button>
+    </div>
+    <iframe src="web/karta_servisov.html" height="720" loading="lazy" title="Карта сервисов с фильтром по доступности"></iframe>
+  </div>
+
+  <figure class="img-card fade" data-lightbox>
+    <img src="png/prezentaciya/10_karta_servisov.png" alt="Три полки сервисов: без вложений, когда нужно больше, готовые решения" loading="lazy" onerror="this.closest('.img-card').classList.add('img-missing')">
+    <figcaption class="img-missing-caption">Карта сервисов (промпт 10 из плана)</figcaption>
+  </figure>
+
+  <div class="note-callout fade">
+    <p><strong>Доступность меняется.</strong> Условия работы сервисов в России пересматриваются регулярно. Перед тем как платить, проверьте актуальные условия на сайте самого сервиса — ссылки в карте выше ведут туда.</p>
+  </div>
+</section>
+
+<!-- ══════════ АГЕНТЫ ══════════ -->
+<section class="sec" id="agents">
+  <div class="sec-head fade">
+    <div class="num-badge badge-flat">★</div>
+    <h2 class="sec-title">Десять помощников, которые были на экране</h2>
+    <p class="sec-desc">Ни один из них не программировался — все описаны обычными словами. Пять первых показывались вживую, остальные — по запросу зала.</p>
+  </div>
+
+  <div class="agents fade">
+    <article class="agent">
+      <p class="agent-num">Демо 1</p>
+      <p class="agent-name">Разведчик конкурента</p>
+      <p class="agent-what">Получает адрес сайта, сам обходит страницы и возвращает разбор: на чём держатся, где дыры, что можно противопоставить.</p>
+      <p class="agent-hook">Полдня работы руками — за полторы минуты</p>
+    </article>
+    <article class="agent">
+      <p class="agent-num">Демо 2</p>
+      <p class="agent-name">Продавец: заявка → КП</p>
+      <p class="agent-what">Из сумбурного сообщения в мессенджере делает коммерческое предложение: расчёт по вашему прайсу, три варианта, сроки, вопрос об уточнении.</p>
+      <p class="agent-hook">Сколько заявок вы теряете из-за ответа через два дня?</p>
+    </article>
+    <article class="agent">
+      <p class="agent-num">Демо 3</p>
+      <p class="agent-name">Рассыльщик персональных писем</p>
+      <p class="agent-what">Читает список организаций из таблицы, заходит на каждый сайт и пишет письмо со ссылкой на то, что нашёл именно у них.</p>
+      <p class="agent-hook">Тридцать разных писем, а не тридцать копий</p>
+    </article>
+    <article class="agent">
+      <p class="agent-num">Демо 4</p>
+      <p class="agent-name">Секретарь планёрки</p>
+      <p class="agent-what">Расшифровывает запись совещания и делает протокол: решения, задачи, ответственные, сроки. Работает на вашем компьютере — запись никуда не уходит.</p>
+      <p class="agent-hook">У всех есть совещания и ни у кого нет протоколов</p>
+    </article>
+    <article class="agent">
+      <p class="agent-num">Демо 5</p>
+      <p class="agent-name">Агент поддержки</p>
+      <p class="agent-what">Отвечает на жалобы клиентов. Собирался на глазах зала по частям: роль → цель → инструкция → знания → ограничения.</p>
+      <p class="agent-hook">Видно, как из отписки получается письмо</p>
+    </article>
+    <article class="agent">
+      <p class="agent-num">Резерв</p>
+      <p class="agent-name">Кадровик-скринер</p>
+      <p class="agent-what">Разбирает пачку резюме под требования вакансии: кто подходит, кто нет, что уточнить у каждого на собеседовании.</p>
+      <p class="agent-hook">Для города, где нужного человека ищут полгода</p>
+    </article>
+    <article class="agent">
+      <p class="agent-num">Резерв</p>
+      <p class="agent-name">Закупщик</p>
+      <p class="agent-what">Собирает предложения поставщиков из почты, сводит в таблицу, сравнивает по цене и срокам, отмечает подозрительные позиции.</p>
+      <p class="agent-hook">Экономия начинается со сравнения, на которое нет времени</p>
+    </article>
+    <article class="agent">
+      <p class="agent-num">Резерв</p>
+      <p class="agent-name">Финансовый аналитик</p>
+      <p class="agent-what">Строит модель нового направления: воронка, юнит-экономика, точка безубыточности, окупаемость, три сценария. На выходе — Excel с живыми формулами.</p>
+      <p class="agent-hook">Ответ на вопрос «а посчитать он может?»</p>
+    </article>
+    <article class="agent">
+      <p class="agent-num">Резерв</p>
+      <p class="agent-name">Контент-фабрика</p>
+      <p class="agent-what">Из одного описания продукта делает пост, текст для лендинга, скрипт продаж и письмо клиенту.</p>
+      <p class="agent-hook">Для собственника, который сам себе маркетолог</p>
+    </article>
+    <article class="agent">
+      <p class="agent-num">Резерв</p>
+      <p class="agent-name">Тренажёр переговоров</p>
+      <p class="agent-what">Отыгрывает трудного клиента по сценарию, затем разбирает диалог по чек-листу и ставит оценку.</p>
+      <p class="agent-hook">Тренировка без риска потерять живого клиента</p>
+    </article>
+  </div>
+</section>
+
+<!-- ══════════ ЧЕК-ЛИСТ ══════════ -->
+<section class="sec" id="checklist">
+  <div class="sec-head fade">
+    <div class="num-badge badge-flat">✓</div>
+    <h2 class="sec-title">Чек-лист готовности к первому пилоту</h2>
+    <p class="sec-desc">Отметки сохраняются в браузере — можно закрыть страницу и вернуться после вебинара.</p>
+  </div>
+
+  <div class="card fade">
+    <div class="checklist-progress-bar"><div class="checklist-progress-fill" id="checklist-progress"></div></div>
+    <ul class="checklist-items">
+      <li><label><input type="checkbox" data-checklist-item="c1"> Выбрал один процесс — не пять</label></li>
+      <li><label><input type="checkbox" data-checklist-item="c2"> Знаю, сколько часов в месяц он съедает и сколько это в деньгах</label></li>
+      <li><label><input type="checkbox" data-checklist-item="c3"> Собрал документы, которые нужны помощнику: прайс, регламент, скрипты</label></li>
+      <li><label><input type="checkbox" data-checklist-item="c4"> Сформулировал роль и цель — не «помоги», а конкретно</label></li>
+      <li><label><input type="checkbox" data-checklist-item="c5"> Записал, что в красной зоне: чего он не делает никогда</label></li>
+      <li><label><input type="checkbox" data-checklist-item="c6"> Назначил день, когда прогоню первый раз на реальной задаче</label></li>
+    </ul>
+    <p class="checklist-done" id="checklist-done" hidden>Готово — можно запускать пилот.</p>
+  </div>
+</section>
+
+<!-- ══════════ КВИЗ ══════════ -->
+<section class="sec" id="quiz">
+  <div class="sec-head fade">
+    <div class="num-badge badge-flat">?</div>
+    <h2 class="sec-title">Проверьте себя</h2>
+    <p class="sec-desc">Шесть вопросов с разбором. Правильный вариант подсвечивается после ответа — даже если ошиблись.</p>
+  </div>
+
+  <div class="quiz fade">
+
+    <div class="quiz-question" data-quiz="1">
+      <p class="quiz-text">1. Помощник назвал цену, которой нет в вашем прайсе. Что случилось?</p>
+      <div class="quiz-options">
+        <label><input type="radio" name="q1" value="wrong"> Сервис бракованный, надо менять</label>
+        <label><input type="radio" name="q1" value="right"> Ему не дали ваш прайс, и он достроил правдоподобную цифру</label>
+        <label><input type="radio" name="q1" value="wrong"> Он специально обманывает, чтобы понравиться</label>
+      </div>
+      <button type="button" class="quiz-check" data-quiz-check="1">Проверить</button>
+      <p class="quiz-feedback" data-quiz-feedback="1" hidden></p>
+    </div>
+
+    <div class="quiz-question" data-quiz="2">
+      <p class="quiz-text">2. Чем помощник-агент отличается от чата с нейросетью?</p>
+      <div class="quiz-options">
+        <label><input type="radio" name="q2" value="wrong"> Он умнее и обучен на большем объёме данных</label>
+        <label><input type="radio" name="q2" value="right"> Он сам выбирает шаги, пользуется вашими данными и доводит задачу до готового результата</label>
+        <label><input type="radio" name="q2" value="wrong"> Он отвечает быстрее</label>
+      </div>
+      <button type="button" class="quiz-check" data-quiz-check="2">Проверить</button>
+      <p class="quiz-feedback" data-quiz-feedback="2" hidden></p>
+    </div>
+
+    <div class="quiz-question" data-quiz="3">
+      <p class="quiz-text">3. Какой процесс лучше отдать помощнику первым?</p>
+      <div class="quiz-options">
+        <label><input type="radio" name="q3" value="wrong"> Самый сложный — там больше всего выгоды</label>
+        <label><input type="radio" name="q3" value="wrong"> Годовой отчёт — он занимает больше всего времени</label>
+        <label><input type="radio" name="q3" value="right"> Частый и рутинный — он окупится быстрее всего</label>
+      </div>
+      <button type="button" class="quiz-check" data-quiz-check="3">Проверить</button>
+      <p class="quiz-feedback" data-quiz-feedback="3" hidden></p>
+    </div>
+
+    <div class="quiz-question" data-quiz="4">
+      <p class="quiz-text">4. Что из перечисленного нельзя доверять помощнику?</p>
+      <div class="quiz-options">
+        <label><input type="radio" name="q4" value="wrong"> Черновик ответа на отзыв</label>
+        <label><input type="radio" name="q4" value="right"> Оплату счёта и передачу паспортных данных клиента в облачный сервис</label>
+        <label><input type="radio" name="q4" value="wrong"> Расшифровку планёрки</label>
+      </div>
+      <button type="button" class="quiz-check" data-quiz-check="4">Проверить</button>
+      <p class="quiz-feedback" data-quiz-feedback="4" hidden></p>
+    </div>
+
+    <div class="quiz-question" data-quiz="5">
+      <p class="quiz-text">5. Что такое skill простыми словами?</p>
+      <div class="quiz-options">
+        <label><input type="radio" name="q5" value="wrong"> Программа, которую пишет разработчик</label>
+        <label><input type="radio" name="q5" value="right"> Записанный обычным текстом процесс — инструкция, которую читает помощник</label>
+        <label><input type="radio" name="q5" value="wrong"> Платная надстройка к сервису</label>
+      </div>
+      <button type="button" class="quiz-check" data-quiz-check="5">Проверить</button>
+      <p class="quiz-feedback" data-quiz-feedback="5" hidden></p>
+    </div>
+
+    <div class="quiz-question" data-quiz="6">
+      <p class="quiz-text">6. С чего начать в понедельник?</p>
+      <div class="quiz-options">
+        <label><input type="radio" name="q6" value="wrong"> Подключить помощника к 1С и CRM</label>
+        <label><input type="radio" name="q6" value="right"> Дать роль, цель и один документ — и сделать один настоящий рабочий текст</label>
+        <label><input type="radio" name="q6" value="wrong"> Изучить, как устроены нейросети</label>
+      </div>
+      <button type="button" class="quiz-check" data-quiz-check="6">Проверить</button>
+      <p class="quiz-feedback" data-quiz-feedback="6" hidden></p>
+    </div>
+
+  </div>
+
+  <p class="quiz-score-box fade" id="quiz-score">Отвечено: 0 / 6</p>
+</section>
+
+<!-- ══════════ ЗАКЛЮЧЕНИЕ ══════════ -->
+<section class="sec" id="final">
+  <div class="sec-head fade">
+    <div class="num-badge badge-flat">→</div>
+    <h2 class="sec-title">Что забрать с собой</h2>
+  </div>
+
+  <ol class="conclusion-list fade">
+    <li><strong>Чат отвечает, помощник делает.</strong> Если после ответа надо доделывать руками — вы разговаривали с чатом.</li>
+    <li><strong>Качество ответа — это то, что вы дали.</strong> Роль, цель, инструкция, знания, память, ограничения. Час настройки — годы пользы.</li>
+    <li><strong>Он выдумывает, только когда ему нечего читать.</strong> Загрузите прайс и регламенты — и требуйте показывать источник.</li>
+    <li><strong>Генерация — ему, отправка — вам.</strong> По крайней мере первые два месяца.</li>
+    <li><strong>Персональные данные клиентов в облако не уходят.</strong> Чувствительное — на своём компьютере или обезличенным.</li>
+    <li><strong>Начните с частого и рутинного.</strong> Процесс раз в квартал автоматизировать невыгодно.</li>
+    <li><strong>Выберите один процесс. Не пять.</strong> Разница между вами и тем, у кого работает, — один потраченный час.</li>
+  </ol>
+</section>
+
+</main>
+
+<div class="overlay" id="lightbox" aria-hidden="true">
+  <a class="overlay-download" id="lightbox-download" download aria-label="Скачать изображение">⬇ Скачать</a>
+  <button class="overlay-close" id="lightbox-close" aria-label="Закрыть">✕</button>
+  <img id="lightbox-img" alt="">
+</div>
+
+<div id="fs-overlay" aria-hidden="true">
+  <div id="fs-bar">
+    <span id="fs-title"></span>
+    <button type="button" id="fs-close" aria-label="Закрыть полноэкранный режим">✕</button>
+  </div>
+  <iframe id="fs-frame" title="Полноэкранная визуализация"></iframe>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div>
+      <div class="foot-brand">
+        <img src="assets/logo_prosto_delay.svg" alt="Просто делай">
+        <div>
+          <p class="foot-name">Илья Чурилов</p>
+          <p class="foot-role">Проект «Просто делай» · внедрение ИИ-помощников в малом бизнесе</p>
+        </div>
+      </div>
+      <!-- TODO: контакты — заменить плейсхолдеры на реальные ссылки перед публикацией -->
+      <div class="foot-links">
+        <a href="mailto:churilovilya74@gmail.com">Написать на почту</a>
+        <a href="#" data-placeholder="telegram">Telegram-канал</a>
+        <a href="#" data-placeholder="site">Сайт проекта</a>
+        <a href="#" data-placeholder="vk">Сообщество ВК</a>
+      </div>
+    </div>
+    <div class="foot-side">
+      <img src="assets/logo_atomgrad.jpg" alt="Сделано в Атомграде">
+      <p>Вебинар для предпринимателей атомных городов</p>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>«ИИ как помощник предпринимателя: реальные сценарии применения» · 2026</span>
+    <span>Материалы вебинара · страница работает офлайн</span>
+  </div>
+</footer>
+
+<script>
+/* Префикс имени файла при скачивании инфографики */
+const BRAND = "prosto-delay";
+
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if (!reduceMotion && "IntersectionObserver" in window) {
+  const reveal = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in");
+        reveal.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.06, rootMargin: "0px 0px -24px"});
+  document.querySelectorAll(".fade").forEach((element) => reveal.observe(element));
+} else {
+  document.querySelectorAll(".fade").forEach((element) => element.classList.add("in"));
+}
+
+/* Подсветка активной секции в навбаре */
+const navLinks = [...document.querySelectorAll(".nav-link")];
+const sections = [...document.querySelectorAll("main section[id]")];
+if ("IntersectionObserver" in window) {
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      navLinks.forEach((link) => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`);
+      });
+    });
+  }, {rootMargin: "-35% 0px -55%", threshold: 0});
+  sections.forEach((section) => sectionObserver.observe(section));
+}
+
+/* Лайтбокс */
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const lightboxDownload = document.getElementById("lightbox-download");
+function brandedFilename(url) {
+  const name = url.split("/").pop().split("?")[0];
+  return `${BRAND}_${name}`;
+}
+document.querySelectorAll(".img-card[data-lightbox]").forEach((card) => {
+  card.addEventListener("click", () => {
+    if (card.classList.contains("img-missing")) return;
+    const img = card.querySelector("img");
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightboxDownload.href = img.src;
+    lightboxDownload.download = brandedFilename(img.src);
+    lightbox.classList.add("open");
+    lightbox.setAttribute("aria-hidden", "false");
+  });
+});
+function closeLightbox() {
+  if (lightbox.contains(document.activeElement)) {
+    document.activeElement.blur();
+  }
+  lightbox.classList.remove("open");
+  lightbox.setAttribute("aria-hidden", "true");
+  lightboxImg.src = "";
+}
+document.getElementById("lightbox-close").addEventListener("click", closeLightbox);
+lightbox.addEventListener("click", (event) => { if (event.target === lightbox) closeLightbox(); });
+
+/* Фуллскрин для iframe-карточек */
+const fsOverlay = document.getElementById("fs-overlay");
+const fsFrame = document.getElementById("fs-frame");
+const fsTitle = document.getElementById("fs-title");
+document.querySelectorAll(".viz-fs").forEach((button) => {
+  button.addEventListener("click", () => {
+    fsFrame.src = button.dataset.fsSrc;
+    fsTitle.textContent = button.dataset.fsTitle;
+    fsOverlay.classList.add("open");
+    fsOverlay.setAttribute("aria-hidden", "false");
+  });
+});
+function closeFs() {
+  if (fsOverlay.contains(document.activeElement)) {
+    document.activeElement.blur();
+  }
+  fsOverlay.classList.remove("open");
+  fsOverlay.setAttribute("aria-hidden", "true");
+  fsFrame.src = "";
+}
+document.getElementById("fs-close").addEventListener("click", closeFs);
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape") return;
+  if (fsOverlay.classList.contains("open")) { closeFs(); } else { closeLightbox(); }
+});
+
+/* Копирование промптов */
+document.querySelectorAll("[data-copy]").forEach((button) => {
+  button.addEventListener("click", async () => {
+    const code = document.getElementById(button.dataset.copy);
+    if (!code) return;
+    const original = button.textContent;
+    try {
+      await navigator.clipboard.writeText(code.innerText);
+      button.textContent = "Скопировано";
+    } catch {
+      button.textContent = "Выделите текст";
+    }
+    window.setTimeout(() => { button.textContent = original; }, 1600);
+  });
+});
+
+/* Чек-лист готовности */
+const CHECKLIST_KEY = "ii-pomoshchnik-prezentaciya-checklist";
+const checklistInputs = [...document.querySelectorAll("[data-checklist-item]")];
+const checklistProgress = document.getElementById("checklist-progress");
+const checklistDone = document.getElementById("checklist-done");
+function loadChecklistState() {
+  try { return JSON.parse(localStorage.getItem(CHECKLIST_KEY) || "{}"); } catch { return {}; }
+}
+function saveChecklistState(state) {
+  try { localStorage.setItem(CHECKLIST_KEY, JSON.stringify(state)); } catch { /* приватный режим */ }
+}
+function renderChecklistProgress() {
+  const checked = checklistInputs.filter((input) => input.checked).length;
+  checklistProgress.style.width = `${Math.round((checked / checklistInputs.length) * 100)}%`;
+  checklistDone.hidden = checked !== checklistInputs.length;
+}
+const savedChecklist = loadChecklistState();
+checklistInputs.forEach((input) => {
+  const key = input.dataset.checklistItem;
+  input.checked = Boolean(savedChecklist[key]);
+  input.addEventListener("change", () => {
+    const state = loadChecklistState();
+    state[key] = input.checked;
+    saveChecklistState(state);
+    renderChecklistProgress();
+  });
+});
+renderChecklistProgress();
+
+/* Квиз */
+const QUIZ_EXPLANATIONS = {
+  1: "Нейросеть не работала в вашей компании. Без прайса она достраивает правдоподобную цифру — это не поломка, а следствие отсутствия документов.",
+  2: "Дело не в скорости и не в «уме»: агент сам решает последовательность шагов, пользуется вашими данными и доводит задачу до готового результата.",
+  3: "Частый и рутинный процесс окупается быстрее всего — и вы успеваете поверить в результат раньше, чем бросите на середине.",
+  4: "Платежи и персональные данные клиентов — красная зона. Черновики и расшифровки помощник делает сам.",
+  5: "Skill — это обычный текст: когда применять, что делать по шагам, каких ошибок избегать. Если писали инструкцию сотруднику — уже умеете.",
+  6: "Начинать надо с первой ступени. Подключение к учётным системам — третья, туда идут после сотни удачных прогонов.",
+};
+const QUIZ_TOTAL = document.querySelectorAll(".quiz-question").length;
+let quizAnswered = 0;
+const quizScoreEl = document.getElementById("quiz-score");
+document.querySelectorAll(".quiz-check").forEach((button) => {
+  button.addEventListener("click", () => {
+    const index = button.dataset.quizCheck;
+    const question = document.querySelector(`.quiz-question[data-quiz="${index}"]`);
+    const selected = question.querySelector(`input[name="q${index}"]:checked`);
+    const feedback = document.querySelector(`[data-quiz-feedback="${index}"]`);
+    if (!selected) {
+      feedback.textContent = "Выберите вариант ответа.";
+      feedback.className = "quiz-feedback incorrect";
+      feedback.hidden = false;
+      return;
+    }
+    const isCorrect = selected.value === "right";
+    feedback.textContent = `${isCorrect ? "Верно. " : "Не совсем. "}${QUIZ_EXPLANATIONS[index]}`;
+    feedback.className = `quiz-feedback ${isCorrect ? "correct" : "incorrect"}`;
+    feedback.hidden = false;
+    question.querySelectorAll("input").forEach((input) => { input.disabled = true; });
+    question.querySelector('input[value="right"]').closest("label").classList.add("quiz-correct-answer");
+    button.disabled = true;
+    quizAnswered += 1;
+    quizScoreEl.textContent = `Отвечено: ${quizAnswered} / ${QUIZ_TOTAL}`;
+  });
+});
+</script>
+</body>
+</html>

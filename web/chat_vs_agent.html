@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Чат или помощник — одна задача, два результата</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1a3054; --navy-dk:#12233d; --navy-lt:#e8edf5;
+  --green:#4ea634; --green-dk:#3d8140; --green-lt:#eef7ea;
+  --bg:#f4f6f9; --card:#fff; --border:#dde3ec;
+  --text:#12233d; --muted:#64748b; --amber:#b45309; --amber-lt:#fef6e7;
+}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:18px}
+.wrap{max-width:1020px;margin:0 auto}
+.task{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:14px}
+.task-lbl{font-size:.68rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.task-text{font-size:.95rem}
+.task-text em{font-style:normal;background:#fff3cd;padding:1px 4px;border-radius:4px}
+.bar{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+button{font-family:inherit;font-weight:700;cursor:pointer;border:none;border-radius:10px;transition:opacity .2s,transform .1s}
+button:active{transform:scale(.98)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.btn-run{background:var(--green);color:#fff;padding:10px 20px;font-size:.9rem;box-shadow:0 4px 14px rgba(78,166,52,.28)}
+.btn-reset{background:var(--border);color:var(--text);padding:10px 16px;font-size:.85rem}
+.hint{font-size:.8rem;color:var(--muted)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.cols{grid-template-columns:1fr}}
+.col{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.col-head{padding:10px 16px;font-weight:800;font-size:.82rem;letter-spacing:.5px;text-transform:uppercase;color:#fff;display:flex;justify-content:space-between;align-items:center}
+.col-chat .col-head{background:#8290a6}
+.col-agent .col-head{background:linear-gradient(135deg,var(--navy),var(--green))}
+.timer{font-size:.72rem;font-weight:700;opacity:.85;font-variant-numeric:tabular-nums}
+.col-body{padding:14px 16px;flex:1;min-height:270px}
+.steps{list-style:none;display:flex;flex-direction:column;gap:8px}
+.steps li{display:flex;gap:9px;align-items:flex-start;font-size:.86rem;opacity:.25;transition:opacity .35s}
+.steps li.on{opacity:1}
+.dot{width:20px;height:20px;border-radius:50%;background:var(--navy-lt);color:var(--navy);font-size:.68rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.col-agent .steps li.on .dot{background:var(--green-lt);color:var(--green-dk)}
+.out{margin-top:14px;border-radius:10px;padding:12px 14px;font-size:.84rem;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
+.out.on{opacity:1;transform:none}
+.out-chat{background:#f1f3f7;border:1px dashed #b9c2d1;color:#4b5563}
+.out-agent{background:var(--green-lt);border:1px solid #bfe0b0}
+.out-lbl{font-size:.66rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px;color:var(--muted)}
+.out-agent .out-lbl{color:var(--green-dk)}
+.doc{background:#fff;border:1px solid #dbeed2;border-radius:8px;padding:10px 12px;margin-top:8px;font-size:.8rem;line-height:1.55}
+.doc b{color:var(--navy)}
+.verdict{margin-top:8px;font-size:.8rem;font-weight:700}
+.verdict-chat{color:var(--amber)}
+.verdict-agent{color:var(--green-dk)}
+.foot{margin-top:16px;background:var(--navy);color:#e7ecf4;border-radius:14px;padding:14px 18px;font-size:.87rem}
+.foot b{color:#a8dc93}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="task">
+    <p class="task-lbl">Одна и та же заявка от клиента</p>
+    <p class="task-text">«Здравствуйте, нужен забор на дачу, метров <em>40 наверное</em>, из профлиста, сколько будет стоить и когда сможете?»</p>
+  </div>
+
+  <div class="bar">
+    <button type="button" class="btn-run" id="run">▶ Обработать заявку</button>
+    <button type="button" class="btn-reset" id="reset">Сбросить</button>
+    <span class="hint">Слева — обычный чат. Справа — помощник, у которого есть ваш прайс.</span>
+  </div>
+
+  <div class="cols">
+
+    <div class="col col-chat">
+      <div class="col-head"><span>Чат с нейросетью</span><span class="timer" id="t-chat"></span></div>
+      <div class="col-body">
+        <ul class="steps" id="steps-chat">
+          <li><span class="dot">1</span><span>Читает вопрос и отвечает из общих знаний</span></li>
+        </ul>
+        <div class="out out-chat" id="out-chat">
+          <p class="out-lbl">Что получили</p>
+          <p>«Стоимость забора из профлиста обычно составляет от 1 200 до 2 500 рублей за погонный метр в зависимости от высоты, толщины листа и типа столбов. Для точного расчёта рекомендуем обратиться к специалистам.»</p>
+          <p class="verdict verdict-chat">⚠ Цены выдуманы. Клиенту это отправить нельзя — считать и писать придётся вам.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col col-agent">
+      <div class="col-head"><span>Помощник-агент</span><span class="timer" id="t-agent"></span></div>
+      <div class="col-body">
+        <ul class="steps" id="steps-agent">
+          <li><span class="dot">1</span><span>Разбирает заявку: 40 м, профлист, дача</span></li>
+          <li><span class="dot">2</span><span>Замечает, что длина названа приблизительно</span></li>
+          <li><span class="dot">3</span><span>Открывает ваш прайс и берёт цены оттуда</span></li>
+          <li><span class="dot">4</span><span>Считает три варианта комплектации</span></li>
+          <li><span class="dot">5</span><span>Смотрит загрузку бригад — берёт ближайший срок</span></li>
+          <li><span class="dot">6</span><span>Собирает коммерческое предложение</span></li>
+        </ul>
+        <div class="out out-agent" id="out-agent">
+          <p class="out-lbl">Что получили</p>
+          <div class="doc">
+            <p><b>Забор из профлиста, 40 п. м</b></p>
+            <p>· Эконом, С8 1,5 м — <b>58 000 ₽</b><br>
+               · Стандарт, С20 2,0 м — <b>76 400 ₽</b><br>
+               · Усиленный, столбы 76 мм — <b>91 200 ₽</b></p>
+            <p>Срок: 5–7 рабочих дней с предоплаты.<br>
+               Уточните, пожалуйста, точную длину — пересчитаю за минуту.</p>
+          </div>
+          <p class="verdict verdict-agent">✓ Цены из вашего прайса. Можно отправлять клиенту как есть.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <b>Простой тест.</b> Если после ответа надо что-то доделывать руками — это был чат.
+    Если результат можно сразу отправить клиенту — это был помощник.
+  </div>
+
+</div>
+
+<script>
+const runBtn = document.getElementById("run");
+const resetBtn = document.getElementById("reset");
+const chatSteps = [...document.querySelectorAll("#steps-chat li")];
+const agentSteps = [...document.querySelectorAll("#steps-agent li")];
+const outChat = document.getElementById("out-chat");
+const outAgent = document.getElementById("out-agent");
+const tChat = document.getElementById("t-chat");
+const tAgent = document.getElementById("t-agent");
+const timers = [];
+
+function clearTimers() {
+  while (timers.length) window.clearTimeout(timers.pop());
+}
+
+function reset() {
+  clearTimers();
+  [...chatSteps, ...agentSteps].forEach((step) => step.classList.remove("on"));
+  outChat.classList.remove("on");
+  outAgent.classList.remove("on");
+  tChat.textContent = "";
+  tAgent.textContent = "";
+  runBtn.disabled = false;
+}
+
+function schedule(callback, delay) {
+  timers.push(window.setTimeout(callback, delay));
+}
+
+runBtn.addEventListener("click", () => {
+  reset();
+  runBtn.disabled = true;
+
+  // Чат: один шаг, ответ почти сразу
+  schedule(() => { chatSteps[0].classList.add("on"); tChat.textContent = "3 сек"; }, 300);
+  schedule(() => { outChat.classList.add("on"); }, 900);
+
+  // Помощник: шесть шагов, дольше — но результат готовый
+  agentSteps.forEach((step, index) => {
+    schedule(() => {
+      step.classList.add("on");
+      tAgent.textContent = `${(index + 1) * 7} сек`;
+    }, 500 + index * 700);
+  });
+  schedule(() => {
+    outAgent.classList.add("on");
+    tAgent.textContent = "42 сек";
+    runBtn.disabled = false;
+  }, 500 + agentSteps.length * 700);
+});
+
+resetBtn.addEventListener("click", reset);
+</script>
+</body>
+</html>

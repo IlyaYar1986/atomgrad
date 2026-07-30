@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Матрица: какой процесс отдать помощнику первым</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1a3054; --navy-dk:#12233d; --navy-lt:#e8edf5;
+  --green:#4ea634; --green-dk:#3d8140; --green-lt:#eef7ea;
+  --bg:#f4f6f9; --card:#fff; --border:#dde3ec;
+  --text:#12233d; --muted:#64748b; --amber-lt:#fff8e6; --amber:#92400e;
+}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:18px}
+.wrap{max-width:1060px;margin:0 auto}
+.cols{display:grid;grid-template-columns:1fr 330px;gap:16px}
+@media(max-width:880px){.cols{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.panel-head{padding:11px 16px;background:linear-gradient(135deg,var(--navy),var(--green));color:#fff;font-weight:800;font-size:.8rem;letter-spacing:.5px;text-transform:uppercase}
+.step{padding:10px 16px;background:var(--navy-lt);font-size:.83rem;border-bottom:1px solid var(--border)}
+.step b{color:var(--navy)}
+.matrix-box{padding:16px 18px}
+.matrix-outer{display:grid;grid-template-columns:26px 1fr;grid-template-rows:1fr 26px;gap:6px}
+.y-axis,.x-axis{display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
+.y-axis{writing-mode:vertical-rl;transform:rotate(180deg)}
+.x-axis{grid-column:2}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);gap:4px;aspect-ratio:1.25;min-height:300px}
+.cell{border:1px dashed #cfd8e6;border-radius:8px;background:#fbfcfe;cursor:pointer;position:relative;padding:4px;display:flex;flex-wrap:wrap;gap:3px;align-content:flex-start;transition:background .18s,border-color .18s}
+.cell:hover{background:var(--navy-lt);border-color:var(--navy)}
+.cell.hot{background:var(--green-lt);border-color:#a8d093;border-style:solid}
+.cell.hot:hover{background:#dff0d6}
+.zone-tag{position:absolute;right:6px;bottom:4px;font-size:.62rem;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:#a8d093;pointer-events:none}
+.chip{font-size:.68rem;font-weight:700;padding:2px 7px;border-radius:100px;background:var(--navy);color:#fff;cursor:pointer;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;z-index:1}
+.cell.hot .chip{background:var(--green-dk)}
+.chip:hover{opacity:.75}
+.side{padding:14px 16px}
+.side-lbl{font-size:.7rem;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.pool{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.pool button{font-family:inherit;font-size:.75rem;font-weight:700;padding:6px 11px;border:1px solid var(--border);background:#fff;color:var(--text);border-radius:100px;cursor:pointer;transition:all .18s}
+.pool button:hover{border-color:var(--green);background:var(--green-lt);color:var(--green-dk)}
+.pool button.picked{background:var(--navy);color:#fff;border-color:var(--navy)}
+.add{display:flex;gap:6px;margin-bottom:14px}
+.add input{flex:1;font-family:inherit;font-size:.8rem;padding:8px 11px;border:1px solid var(--border);border-radius:9px;color:var(--text)}
+.add input:focus{outline:2px solid var(--green);outline-offset:1px;border-color:var(--green)}
+.add button{font-family:inherit;font-weight:700;font-size:.8rem;padding:8px 13px;border:none;border-radius:9px;background:var(--green);color:#fff;cursor:pointer}
+.verdict{padding:12px 14px;border-radius:11px;font-size:.85rem;line-height:1.6}
+.v-empty{background:var(--navy-lt);color:var(--navy)}
+.v-good{background:var(--green-lt);color:var(--green-dk);border:1px solid #bfe0b0}
+.v-warn{background:var(--amber-lt);color:var(--amber);border:1px solid #f5d98a}
+.verdict b{display:block;margin-bottom:3px}
+.clear{margin-top:10px;width:100%;font-family:inherit;font-weight:700;font-size:.78rem;padding:8px;border:none;border-radius:9px;background:var(--border);color:var(--text);cursor:pointer}
+.foot{margin-top:16px;background:var(--navy);color:#e7ecf4;border-radius:14px;padding:14px 18px;font-size:.86rem}
+.foot b{color:#a8dc93}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="cols">
+
+    <div class="panel">
+      <div class="panel-head">Матрица выбора процесса</div>
+      <p class="step"><b>Как пользоваться:</b> выберите процесс справа, затем щёлкните по клетке — чем правее, тем чаще он повторяется; чем выше, тем он рутиннее. Зелёный угол — кандидаты на первый пилот.</p>
+      <div class="matrix-box">
+        <div class="matrix-outer">
+          <div class="y-axis">Насколько рутинно →</div>
+          <div class="grid" id="grid"></div>
+          <div class="x-axis">Как часто повторяется →</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">Процессы</div>
+      <div class="side">
+        <p class="side-lbl">Выберите или добавьте свой</p>
+        <div class="pool" id="pool"></div>
+        <div class="add">
+          <input type="text" id="custom" placeholder="Свой процесс" maxlength="28" aria-label="Свой процесс">
+          <button type="button" id="add">Добавить</button>
+        </div>
+        <p class="side-lbl">Вывод</p>
+        <div class="verdict v-empty" id="verdict"><b>Пока пусто.</b> Поставьте на матрицу три-четыре своих процесса — станет видно, с какого начинать.</div>
+        <button type="button" class="clear" id="clear">Очистить матрицу</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <b>Правило первого пилота.</b> Берите процесс из зелёного угла — частый и рутинный.
+    Редкий процесс автоматизировать невыгодно, а творческий помощник всё равно не закроет.
+  </div>
+
+</div>
+
+<script>
+const DEFAULT_POOL = [
+  "Ответы на заявки",
+  "Ответы на отзывы",
+  "Протоколы планёрок",
+  "Отчёт за неделю",
+  "Счета и акты",
+  "Подбор персонала",
+  "Посты в соцсети",
+  "Сравнение поставщиков",
+  "Переговоры с клиентом",
+  "Инвентаризация",
+];
+
+const grid = document.getElementById("grid");
+const pool = document.getElementById("pool");
+const verdict = document.getElementById("verdict");
+let picked = null;
+const placed = [];   // {name, x, y} — x и y от 0 до 3
+
+function buildGrid() {
+  for (let row = 0; row < 4; row += 1) {
+    for (let col = 0; col < 4; col += 1) {
+      const cell = document.createElement("div");
+      cell.className = "cell";
+      cell.dataset.x = String(col);
+      cell.dataset.y = String(3 - row);   // верхний ряд — самый рутинный
+      if (col >= 2 && 3 - row >= 2) {
+        cell.classList.add("hot");
+        if (col === 3 && row === 0) {
+          const tag = document.createElement("span");
+          tag.className = "zone-tag";
+          tag.textContent = "первый пилот";
+          cell.appendChild(tag);
+        }
+      }
+      cell.addEventListener("click", (event) => {
+        if (event.target.classList.contains("chip")) return;
+        place(Number(cell.dataset.x), Number(cell.dataset.y));
+      });
+      grid.appendChild(cell);
+    }
+  }
+}
+
+function buildPool() {
+  pool.innerHTML = "";
+  DEFAULT_POOL.forEach((name) => {
+    if (placed.some((item) => item.name === name)) return;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = name;
+    if (picked === name) button.classList.add("picked");
+    button.addEventListener("click", () => {
+      picked = picked === name ? null : name;
+      buildPool();
+    });
+    pool.appendChild(button);
+  });
+  if (!pool.children.length) {
+    const hint = document.createElement("p");
+    hint.style.cssText = "font-size:.78rem;color:#64748b";
+    hint.textContent = "Все процессы расставлены — добавьте свой.";
+    pool.appendChild(hint);
+  }
+}
+
+function place(x, y) {
+  if (!picked) {
+    verdict.className = "verdict v-warn";
+    verdict.innerHTML = "<b>Сначала выберите процесс.</b> Щёлкните по названию справа, потом по клетке.";
+    return;
+  }
+  placed.push({name: picked, x, y});
+  picked = null;
+  buildPool();
+  render();
+}
+
+function render() {
+  document.querySelectorAll(".cell").forEach((cell) => {
+    [...cell.querySelectorAll(".chip")].forEach((chip) => chip.remove());
+  });
+
+  placed.forEach((item, index) => {
+    const cell = document.querySelector(`.cell[data-x="${item.x}"][data-y="${item.y}"]`);
+    if (!cell) return;
+    const chip = document.createElement("span");
+    chip.className = "chip";
+    chip.textContent = item.name;
+    chip.title = "Убрать с матрицы";
+    chip.addEventListener("click", () => {
+      placed.splice(index, 1);
+      buildPool();
+      render();
+    });
+    cell.appendChild(chip);
+  });
+
+  if (!placed.length) {
+    verdict.className = "verdict v-empty";
+    verdict.innerHTML = "<b>Пока пусто.</b> Поставьте на матрицу три-четыре своих процесса — станет видно, с какого начинать.";
+    return;
+  }
+
+  const scored = placed.map((item) => ({...item, score: item.x + item.y}));
+  const best = scored.reduce((a, b) => (b.score > a.score ? b : a));
+  const hot = scored.filter((item) => item.x >= 2 && item.y >= 2);
+
+  if (!hot.length) {
+    verdict.className = "verdict v-warn";
+    verdict.innerHTML = `<b>В зелёном углу пусто.</b> Ни один процесс не набрал одновременно частоты и рутинности. Ближе всех — «${best.name}». Подумайте, нет ли процесса, который вы делаете каждый день на автомате.`;
+    return;
+  }
+
+  verdict.className = "verdict v-good";
+  const others = hot.length > 1 ? ` Ещё ${hot.length - 1} в зелёной зоне — их берите вторым и третьим заходом.` : "";
+  verdict.innerHTML = `<b>Начните с «${best.name}».</b> Частый и рутинный — окупится быстрее всего, и вы успеете поверить в результат.${others}`;
+}
+
+document.getElementById("add").addEventListener("click", () => {
+  const input = document.getElementById("custom");
+  const name = input.value.trim();
+  if (!name) return;
+  DEFAULT_POOL.push(name);
+  picked = name;
+  input.value = "";
+  buildPool();
+});
+
+document.getElementById("custom").addEventListener("keydown", (event) => {
+  if (event.key === "Enter") document.getElementById("add").click();
+});
+
+document.getElementById("clear").addEventListener("click", () => {
+  placed.length = 0;
+  picked = null;
+  buildPool();
+  render();
+});
+
+buildGrid();
+buildPool();
+render();
+</script>
+</body>
+</html>
