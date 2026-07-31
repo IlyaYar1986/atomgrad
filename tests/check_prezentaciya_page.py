@@ -210,6 +210,19 @@ class PlanTest(unittest.TestCase):
         for number in range(1, 11):
             self.assertIn(f"## {number:02d} ·", plan, f"нет промпта {number:02d} в плане")
 
+    def test_every_prompt_carries_the_atomic_background(self):
+        plan = (ROOT / "Docs" / "prezentaciya_plan.md").read_text(encoding="utf-8")
+        self.assertEqual(
+            plan.count("BACKGROUND LAYER"), 10,
+            "сквозной атомный фон должен быть во всех десяти промптах — иначе серия распадётся",
+        )
+
+    def test_prompts_use_client_palette(self):
+        plan = (ROOT / "Docs" / "prezentaciya_plan.md").read_text(encoding="utf-8")
+        self.assertIn("#20599D", plan)
+        for stale in ("lavender", "fresh green", "navy to green"):
+            self.assertNotIn(stale, plan, f"в промптах осталась прежняя гамма: {stale}")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -9,7 +9,7 @@
 :root{
   /* Палитра бренда «Сделано в Атомграде» — сделановатомграде.рф */
   --navy:#20599d; --navy-dk:#174679; --navy-lt:#e8f0f8;
-  --green:#2e7d32; --green-dk:#256428; --green-lt:#edf6ed;
+  --ok:#20599d; --ok-dk:#174679; --ok-lt:#e8f0f8;
   --bg:#f4f7fa; --card:#fff; --border:#dde6ee;
   --text:#111418; --muted:#6b7380;
   --red:#e31e24; --red-lt:#fdecec;
@@ -38,12 +38,12 @@ input[type=range]{width:100%;accent-color:var(--navy);cursor:pointer}
 .stat-lbl{font-size:.7rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
 .stat-num{font-size:1.65rem;font-weight:900;letter-spacing:-.5px;font-variant-numeric:tabular-nums;line-height:1.15}
 .stat-sub{font-size:.76rem;color:var(--muted);margin-top:2px}
-.stat-green .stat-num{color:var(--green-dk)}
+.stat-ok .stat-num{color:var(--ok-dk)}
 .stat-navy .stat-num{color:var(--navy)}
 .split{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px}
 .split-row{display:flex;justify-content:space-between;padding:9px 15px;font-size:.86rem;border-bottom:1px solid var(--border)}
 .split-row:last-child{border-bottom:none}
-.split-row.total{background:var(--green-lt);font-weight:800;color:var(--green-dk)}
+.split-row.total{background:var(--ok-lt);font-weight:800;color:var(--ok-dk)}
 .split-row.total.total-neg{background:var(--red-lt);color:var(--red)}
 .split-row span:last-child{font-variant-numeric:tabular-nums;font-weight:700}
 .bar-wrap{margin-bottom:14px}
@@ -52,7 +52,7 @@ input[type=range]{width:100%;accent-color:var(--navy);cursor:pointer}
 .bar-you{background:var(--navy);height:100%;transition:width .35s ease}
 .bar-bot{background:#7aa8d4;height:100%;transition:width .35s ease}
 .verdict{padding:13px 16px;border-radius:12px;font-size:.87rem;line-height:1.6}
-.v-good{background:var(--green-lt);color:var(--green-dk);border:1px solid #bfe0b0}
+.v-good{background:var(--ok-lt);color:var(--ok-dk);border:1px solid #c4d9ef}
 .v-warn{background:var(--amber-lt);color:var(--amber);border:1px solid #f5d98a}
 .v-bad{background:var(--red-lt);color:var(--red);border:1px solid #f5c2c2}
 .verdict b{display:block;margin-bottom:3px}
@@ -107,7 +107,7 @@ input[type=range]{width:100%;accent-color:var(--navy);cursor:pointer}
       <div class="res">
 
         <div class="big">
-          <div class="stat stat-green">
+          <div class="stat stat-ok">
             <p class="stat-lbl">Экономия в месяц</p>
             <p class="stat-num" id="save-month">—</p>
             <p class="stat-sub" id="save-hours">—</p>

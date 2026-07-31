@@ -9,7 +9,7 @@
 :root{
   /* Палитра бренда «Сделано в Атомграде» — сделановатомграде.рф */
   --navy:#20599d; --navy-dk:#174679; --navy-lt:#e8f0f8;
-  --green:#2e7d32; --green-dk:#256428; --green-lt:#edf6ed;
+  --ok:#20599d; --ok-dk:#174679; --ok-lt:#e8f0f8;
   --bg:#f4f7fa; --card:#fff; --border:#dde6ee;
   --text:#111418; --muted:#6b7380;
   --red:#e31e24; --red-lt:#fdecec;
@@ -41,18 +41,18 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .steps li{display:flex;gap:9px;align-items:flex-start;font-size:.86rem;opacity:.25;transition:opacity .35s}
 .steps li.on{opacity:1}
 .dot{width:20px;height:20px;border-radius:50%;background:var(--navy-lt);color:var(--navy);font-size:.68rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-.col-agent .steps li.on .dot{background:var(--green-lt);color:var(--green-dk)}
+.col-agent .steps li.on .dot{background:var(--ok-lt);color:var(--ok-dk)}
 .out{margin-top:14px;border-radius:10px;padding:12px 14px;font-size:.84rem;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
 .out.on{opacity:1;transform:none}
 .out-chat{background:#f1f3f7;border:1px dashed #b9c2d1;color:#4b5563}
-.out-agent{background:var(--green-lt);border:1px solid #bfe0b0}
+.out-agent{background:var(--ok-lt);border:1px solid #c4d9ef}
 .out-lbl{font-size:.66rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px;color:var(--muted)}
-.out-agent .out-lbl{color:var(--green-dk)}
+.out-agent .out-lbl{color:var(--ok-dk)}
 .doc{background:#fff;border:1px solid #dbeed2;border-radius:8px;padding:10px 12px;margin-top:8px;font-size:.8rem;line-height:1.55}
 .doc b{color:var(--navy)}
 .verdict{margin-top:8px;font-size:.8rem;font-weight:700}
 .verdict-chat{color:var(--amber)}
-.verdict-agent{color:var(--green-dk)}
+.verdict-agent{color:var(--ok-dk)}
 .foot{margin-top:16px;background:var(--navy);color:#e7ecf4;border-radius:14px;padding:14px 18px;font-size:.87rem}
 .foot b{color:#9dc2e8}
 </style>

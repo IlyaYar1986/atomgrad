@@ -9,7 +9,7 @@
 :root{
   /* Палитра бренда «Сделано в Атомграде» — сделановатомграде.рф */
   --navy:#20599d; --navy-dk:#174679; --navy-lt:#e8f0f8;
-  --green:#2e7d32; --green-dk:#256428; --green-lt:#edf6ed;
+  --ok:#20599d; --ok-dk:#174679; --ok-lt:#e8f0f8;
   --bg:#f4f7fa; --card:#fff; --border:#dde6ee;
   --text:#111418; --muted:#6b7380;
   --red:#e31e24; --red-lt:#fdecec;
@@ -32,11 +32,11 @@ body{font-family:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;back
 .grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);gap:4px;aspect-ratio:1.25;min-height:300px}
 .cell{border:1px dashed #cfd8e6;border-radius:8px;background:#fbfcfe;cursor:pointer;position:relative;padding:4px;display:flex;flex-wrap:wrap;gap:3px;align-content:flex-start;transition:background .18s,border-color .18s}
 .cell:hover{background:var(--navy-lt);border-color:var(--navy)}
-.cell.hot{background:var(--green-lt);border-color:#a8d093;border-style:solid}
-.cell.hot:hover{background:#dff0d6}
-.zone-tag{position:absolute;right:6px;bottom:4px;font-size:.62rem;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:#a8d093;pointer-events:none}
+.cell.hot{background:var(--ok-lt);border-color:#a9c8e6;border-style:solid}
+.cell.hot:hover{background:#dbe9f7}
+.zone-tag{position:absolute;right:6px;bottom:4px;font-size:.62rem;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:#a9c8e6;pointer-events:none}
 .chip{font-size:.68rem;font-weight:700;padding:2px 7px;border-radius:100px;background:var(--navy);color:#fff;cursor:pointer;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;z-index:1}
-.cell.hot .chip{background:var(--green-dk)}
+.cell.hot .chip{background:var(--ok-dk)}
 .chip:hover{opacity:.75}
 .side{padding:14px 16px}
 .side-lbl{font-size:.7rem;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
@@ -47,10 +47,10 @@ body{font-family:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;back
 .add{display:flex;gap:6px;margin-bottom:14px}
 .add input{flex:1;font-family:inherit;font-size:.8rem;padding:8px 11px;border:1px solid var(--border);border-radius:9px;color:var(--text)}
 .add input:focus{outline:2px solid var(--navy);outline-offset:1px;border-color:var(--navy)}
-.add button{font-family:inherit;font-weight:700;font-size:.8rem;padding:8px 13px;border:none;border-radius:9px;background:var(--green);color:#fff;cursor:pointer}
+.add button{font-family:inherit;font-weight:700;font-size:.8rem;padding:8px 13px;border:none;border-radius:9px;background:var(--ok);color:#fff;cursor:pointer}
 .verdict{padding:12px 14px;border-radius:11px;font-size:.85rem;line-height:1.6}
 .v-empty{background:var(--navy-lt);color:var(--navy)}
-.v-good{background:var(--green-lt);color:var(--green-dk);border:1px solid #bfe0b0}
+.v-good{background:var(--ok-lt);color:var(--ok-dk);border:1px solid #c4d9ef}
 .v-warn{background:var(--amber-lt);color:var(--amber);border:1px solid #f5d98a}
 .verdict b{display:block;margin-bottom:3px}
 .clear{margin-top:10px;width:100%;font-family:inherit;font-weight:700;font-size:.78rem;padding:8px;border:none;border-radius:9px;background:var(--border);color:var(--text);cursor:pointer}
@@ -65,7 +65,7 @@ body{font-family:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;back
 
     <div class="panel">
       <div class="panel-head">Матрица выбора процесса</div>
-      <p class="step"><b>Как пользоваться:</b> выберите процесс справа, затем щёлкните по клетке — чем правее, тем чаще он повторяется; чем выше, тем он рутиннее. Зелёный угол — кандидаты на первый пилот.</p>
+      <p class="step"><b>Как пользоваться:</b> выберите процесс справа, затем щёлкните по клетке — чем правее, тем чаще он повторяется; чем выше, тем он рутиннее. Выделенный угол — кандидаты на первый пилот.</p>
       <div class="matrix-box">
         <div class="matrix-outer">
           <div class="y-axis">Насколько рутинно →</div>
@@ -93,7 +93,7 @@ body{font-family:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;back
   </div>
 
   <div class="foot">
-    <b>Правило первого пилота.</b> Берите процесс из зелёного угла — частый и рутинный.
+    <b>Правило первого пилота.</b> Берите процесс из выделенного угла — частый и рутинный.
     Редкий процесс автоматизировать невыгодно, а творческий помощник всё равно не закроет.
   </div>
 
@@ -210,12 +210,12 @@ function render() {
 
   if (!hot.length) {
     verdict.className = "verdict v-warn";
-    verdict.innerHTML = `<b>В зелёном углу пусто.</b> Ни один процесс не набрал одновременно частоты и рутинности. Ближе всех — «${best.name}». Подумайте, нет ли процесса, который вы делаете каждый день на автомате.`;
+    verdict.innerHTML = `<b>В выделенном углу пусто.</b> Ни один процесс не набрал одновременно частоты и рутинности. Ближе всех — «${best.name}». Подумайте, нет ли процесса, который вы делаете каждый день на автомате.`;
     return;
   }
 
   verdict.className = "verdict v-good";
-  const others = hot.length > 1 ? ` Ещё ${hot.length - 1} в зелёной зоне — их берите вторым и третьим заходом.` : "";
+  const others = hot.length > 1 ? ` Ещё ${hot.length - 1} в выделенной зоне — их берите вторым и третьим заходом.` : "";
   verdict.innerHTML = `<b>Начните с «${best.name}».</b> Частый и рутинный — окупится быстрее всего, и вы успеете поверить в результат.${others}`;
 }
 

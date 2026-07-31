@@ -9,7 +9,7 @@
 :root{
   /* Палитра бренда «Сделано в Атомграде» — сделановатомграде.рф */
   --navy:#20599d; --navy-dk:#174679; --navy-lt:#e8f0f8;
-  --green:#2e7d32; --green-dk:#256428; --green-lt:#edf6ed;
+  --ok:#20599d; --ok-dk:#174679; --ok-lt:#e8f0f8;
   --bg:#f4f7fa; --card:#fff; --border:#dde6ee;
   --text:#111418; --muted:#6b7380;
   --red:#e31e24; --red-lt:#fdecec;
@@ -25,7 +25,7 @@ body{font-family:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;back
 .f-row button{font-family:inherit;font-size:.76rem;font-weight:700;padding:6px 12px;border:1px solid var(--border);background:#fff;color:var(--muted);border-radius:100px;cursor:pointer;transition:all .18s}
 .f-row button:hover{border-color:var(--navy);color:var(--navy)}
 .f-row button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
-.f-row button.on[data-access="free"]{background:var(--green-dk);border-color:var(--green-dk)}
+.f-row button.on[data-access="free"]{background:var(--ok-dk);border-color:var(--ok-dk)}
 .count{margin-left:auto;font-size:.78rem;color:var(--muted);font-weight:700}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
 .svc{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:14px 16px;display:flex;flex-direction:column;gap:7px}
@@ -34,7 +34,7 @@ body{font-family:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;back
 .svc-name a{color:var(--navy);text-decoration:underline;text-underline-offset:2px}
 .svc-name a:hover{color:var(--navy-dk)}
 .badge{font-size:.65rem;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:3px 9px;border-radius:100px;white-space:nowrap;flex-shrink:0}
-.b-free{background:var(--green-lt);color:var(--green-dk);border:1px solid #bfe0b0}
+.b-free{background:var(--ok-lt);color:var(--ok-dk);border:1px solid #c4d9ef}
 .b-card{background:var(--amber-lt);color:var(--amber);border:1px solid #f5d98a}
 .b-vpn{background:var(--red-lt);color:var(--red);border:1px solid #f3c6ce}
 .b-local{background:var(--navy-lt);color:var(--navy);border:1px solid #c4d0e2}
