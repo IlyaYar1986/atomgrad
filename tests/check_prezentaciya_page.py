@@ -15,8 +15,8 @@ DEMOS = [
     ROOT / "web" / "karta_servisov.html",
 ]
 ASSETS = [
-    ROOT / "assets" / "logo_prosto_delay.svg",
-    ROOT / "assets" / "logo_atomgrad.jpg",
+    ROOT / "assets" / "logo_atomgrad_znak.png",   # основной бренд — знак заказчика
+    ROOT / "assets" / "logo_prosto_delay.svg",    # знак ведущего в подвале
 ]
 
 
@@ -100,7 +100,7 @@ class PrezentaciyaPageTest(unittest.TestCase):
             self.assertIn(relative, embedded, f"демо не встроено в страницу: {relative}")
 
     def test_infographics_paths(self):
-        png_srcs = [src for src in self.parser.img_srcs if src.endswith(".png")]
+        png_srcs = [src for src in self.parser.img_srcs if src.startswith("png/")]
         self.assertEqual(len(png_srcs), 10, "ожидается 10 инфографик")
         for src in png_srcs:
             self.assertTrue(
@@ -111,8 +111,19 @@ class PrezentaciyaPageTest(unittest.TestCase):
     def test_brand_assets_present(self):
         for asset in ASSETS:
             self.assertTrue(asset.is_file(), f"нет фирменного ассета: {asset.name}")
+        # Основной бренд — заказчик: его знак в навбаре, в hero и в подвале
+        self.assertGreaterEqual(
+            self.html.count("assets/logo_atomgrad_znak.png"), 3,
+            "знак заказчика должен стоять в навбаре, hero и подвале",
+        )
+        self.assertIn("Сделано в Атомграде", self.html)
         self.assertIn("assets/logo_prosto_delay.svg", self.html)
-        self.assertIn("assets/logo_atomgrad.jpg", self.html)
+
+    def test_client_brand_palette(self):
+        for token in ("#20599d", "Montserrat"):
+            self.assertIn(token, self.html, f"нет фирменного токена: {token}")
+        for stale in ("#1a3054", "#4ea634", "--navy"):
+            self.assertNotIn(stale, self.html, f"осталась прежняя палитра: {stale}")
 
     def test_author_contacts_present(self):
         self.assertIn("churilovilya74@gmail.com", self.html, "нет контакта ведущего")

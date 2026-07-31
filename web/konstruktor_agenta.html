@@ -7,12 +7,16 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#1a3054; --navy-dk:#12233d; --navy-lt:#e8edf5;
-  --green:#4ea634; --green-dk:#3d8140; --green-lt:#eef7ea;
-  --bg:#f4f6f9; --card:#fff; --border:#dde3ec;
-  --text:#12233d; --muted:#64748b; --red:#b91c1c; --red-lt:#fef2f2;
+  /* Палитра бренда «Сделано в Атомграде» — сделановатомграде.рф */
+  --navy:#20599d; --navy-dk:#174679; --navy-lt:#e8f0f8;
+  --green:#2e7d32; --green-dk:#256428; --green-lt:#edf6ed;
+  --bg:#f4f7fa; --card:#fff; --border:#dde6ee;
+  --text:#111418; --muted:#6b7380;
+  --red:#e31e24; --red-lt:#fdecec;
+  --amber:#b45309; --amber-lt:#fdf6e7;
+  --r:18px;
 }
-body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:18px}
+body{font-family:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:18px}
 .wrap{max-width:1060px;margin:0 auto}
 .top{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
 .top-lbl{font-size:.68rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
@@ -24,22 +28,22 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
 .cols{display:grid;grid-template-columns:340px 1fr;gap:16px}
 @media(max-width:860px){.cols{grid-template-columns:1fr}}
 .panel{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
-.panel-head{padding:11px 16px;background:linear-gradient(135deg,var(--navy),var(--green));color:#fff;font-weight:800;font-size:.8rem;letter-spacing:.5px;text-transform:uppercase}
+.panel-head{padding:11px 16px;background:var(--navy);color:#fff;font-weight:800;font-size:.8rem;letter-spacing:.5px;text-transform:uppercase}
 .parts{padding:8px}
 .part{display:flex;gap:11px;align-items:flex-start;padding:10px 11px;border-radius:10px;cursor:pointer;transition:background .18s}
 .part:hover{background:var(--navy-lt)}
-.part input{width:17px;height:17px;accent-color:var(--green);cursor:pointer;flex-shrink:0;margin-top:3px}
+.part input{width:17px;height:17px;accent-color:var(--navy);cursor:pointer;flex-shrink:0;margin-top:3px}
 .part-name{font-weight:800;font-size:.88rem}
 .part-desc{font-size:.78rem;color:var(--muted);line-height:1.45}
 .actions{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--border)}
 .actions button{flex:1;font-family:inherit;font-weight:700;font-size:.8rem;padding:9px;border:none;border-radius:9px;cursor:pointer;transition:opacity .2s}
 .actions button:hover{opacity:.88}
-.btn-all{background:var(--green);color:#fff}
+.btn-all{background:var(--navy);color:#fff}
 .btn-none{background:var(--border);color:var(--text)}
 .meter{padding:12px 16px;border-top:1px solid var(--border)}
 .meter-lbl{display:flex;justify-content:space-between;font-size:.76rem;font-weight:700;color:var(--muted);margin-bottom:6px}
 .meter-bar{height:9px;border-radius:100px;background:var(--navy-lt);overflow:hidden}
-.meter-fill{height:100%;width:0;border-radius:100px;background:linear-gradient(90deg,var(--navy),var(--green));transition:width .35s ease}
+.meter-fill{height:100%;width:0;border-radius:100px;background:var(--navy);transition:width .35s ease}
 .answer-body{padding:16px 18px;min-height:300px}
 .answer-lbl{font-size:.66rem;font-weight:800;letter-spacing:.9px;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
 .answer-text{font-size:.93rem;line-height:1.68;white-space:pre-wrap}
@@ -52,7 +56,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
 .v-mid{background:#fff8e6;color:#92400e}
 .v-good{background:var(--green-lt);color:var(--green-dk)}
 .foot{margin-top:16px;background:var(--navy);color:#e7ecf4;border-radius:14px;padding:14px 18px;font-size:.87rem}
-.foot b{color:#a8dc93}
+.foot b{color:#9dc2e8}
 </style>
 </head>
 <body>

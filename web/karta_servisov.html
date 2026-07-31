@@ -7,13 +7,16 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#1a3054; --navy-dk:#12233d; --navy-lt:#e8edf5;
-  --green:#4ea634; --green-dk:#3d8140; --green-lt:#eef7ea;
-  --bg:#f4f6f9; --card:#fff; --border:#dde3ec;
-  --text:#12233d; --muted:#64748b;
-  --amber-lt:#fff8e6; --amber:#92400e; --red-lt:#fdf0f0; --red:#9f1239;
+  /* Палитра бренда «Сделано в Атомграде» — сделановатомграде.рф */
+  --navy:#20599d; --navy-dk:#174679; --navy-lt:#e8f0f8;
+  --green:#2e7d32; --green-dk:#256428; --green-lt:#edf6ed;
+  --bg:#f4f7fa; --card:#fff; --border:#dde6ee;
+  --text:#111418; --muted:#6b7380;
+  --red:#e31e24; --red-lt:#fdecec;
+  --amber:#b45309; --amber-lt:#fdf6e7;
+  --r:18px;
 }
-body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:18px}
+body{font-family:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:18px}
 .wrap{max-width:1080px;margin:0 auto}
 .filters{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px 16px;margin-bottom:14px}
 .f-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -29,7 +32,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
 .svc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
 .svc-name{font-weight:800;font-size:.97rem}
 .svc-name a{color:var(--navy);text-decoration:underline;text-underline-offset:2px}
-.svc-name a:hover{color:var(--green-dk)}
+.svc-name a:hover{color:var(--navy-dk)}
 .badge{font-size:.65rem;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:3px 9px;border-radius:100px;white-space:nowrap;flex-shrink:0}
 .b-free{background:var(--green-lt);color:var(--green-dk);border:1px solid #bfe0b0}
 .b-card{background:var(--amber-lt);color:var(--amber);border:1px solid #f5d98a}
@@ -41,7 +44,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
 .task-tag{font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:100px;background:#f1f4f9;color:var(--muted)}
 .empty{grid-column:1/-1;text-align:center;padding:34px;color:var(--muted);font-size:.9rem}
 .foot{margin-top:16px;background:var(--navy);color:#e7ecf4;border-radius:14px;padding:14px 18px;font-size:.85rem}
-.foot b{color:#a8dc93}
+.foot b{color:#9dc2e8}
 </style>
 </head>
 <body>

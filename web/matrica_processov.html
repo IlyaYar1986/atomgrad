@@ -7,17 +7,21 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#1a3054; --navy-dk:#12233d; --navy-lt:#e8edf5;
-  --green:#4ea634; --green-dk:#3d8140; --green-lt:#eef7ea;
-  --bg:#f4f6f9; --card:#fff; --border:#dde3ec;
-  --text:#12233d; --muted:#64748b; --amber-lt:#fff8e6; --amber:#92400e;
+  /* Палитра бренда «Сделано в Атомграде» — сделановатомграде.рф */
+  --navy:#20599d; --navy-dk:#174679; --navy-lt:#e8f0f8;
+  --green:#2e7d32; --green-dk:#256428; --green-lt:#edf6ed;
+  --bg:#f4f7fa; --card:#fff; --border:#dde6ee;
+  --text:#111418; --muted:#6b7380;
+  --red:#e31e24; --red-lt:#fdecec;
+  --amber:#b45309; --amber-lt:#fdf6e7;
+  --r:18px;
 }
-body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:18px}
+body{font-family:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:18px}
 .wrap{max-width:1060px;margin:0 auto}
 .cols{display:grid;grid-template-columns:1fr 330px;gap:16px}
 @media(max-width:880px){.cols{grid-template-columns:1fr}}
 .panel{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
-.panel-head{padding:11px 16px;background:linear-gradient(135deg,var(--navy),var(--green));color:#fff;font-weight:800;font-size:.8rem;letter-spacing:.5px;text-transform:uppercase}
+.panel-head{padding:11px 16px;background:var(--navy);color:#fff;font-weight:800;font-size:.8rem;letter-spacing:.5px;text-transform:uppercase}
 .step{padding:10px 16px;background:var(--navy-lt);font-size:.83rem;border-bottom:1px solid var(--border)}
 .step b{color:var(--navy)}
 .matrix-box{padding:16px 18px}
@@ -38,11 +42,11 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
 .side-lbl{font-size:.7rem;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
 .pool{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
 .pool button{font-family:inherit;font-size:.75rem;font-weight:700;padding:6px 11px;border:1px solid var(--border);background:#fff;color:var(--text);border-radius:100px;cursor:pointer;transition:all .18s}
-.pool button:hover{border-color:var(--green);background:var(--green-lt);color:var(--green-dk)}
+.pool button:hover{border-color:var(--navy);background:var(--navy-lt);color:var(--navy)}
 .pool button.picked{background:var(--navy);color:#fff;border-color:var(--navy)}
 .add{display:flex;gap:6px;margin-bottom:14px}
 .add input{flex:1;font-family:inherit;font-size:.8rem;padding:8px 11px;border:1px solid var(--border);border-radius:9px;color:var(--text)}
-.add input:focus{outline:2px solid var(--green);outline-offset:1px;border-color:var(--green)}
+.add input:focus{outline:2px solid var(--navy);outline-offset:1px;border-color:var(--navy)}
 .add button{font-family:inherit;font-weight:700;font-size:.8rem;padding:8px 13px;border:none;border-radius:9px;background:var(--green);color:#fff;cursor:pointer}
 .verdict{padding:12px 14px;border-radius:11px;font-size:.85rem;line-height:1.6}
 .v-empty{background:var(--navy-lt);color:var(--navy)}
@@ -51,7 +55,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
 .verdict b{display:block;margin-bottom:3px}
 .clear{margin-top:10px;width:100%;font-family:inherit;font-weight:700;font-size:.78rem;padding:8px;border:none;border-radius:9px;background:var(--border);color:var(--text);cursor:pointer}
 .foot{margin-top:16px;background:var(--navy);color:#e7ecf4;border-radius:14px;padding:14px 18px;font-size:.86rem}
-.foot b{color:#a8dc93}
+.foot b{color:#9dc2e8}
 </style>
 </head>
 <body>

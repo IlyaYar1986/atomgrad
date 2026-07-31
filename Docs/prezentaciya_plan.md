@@ -2,7 +2,9 @@
 
 Одна страница-лонгрид `index.html` + пять интерактивных демо в `web/`. Показывается с проектора во время вебинара и остаётся участникам после него.
 
-**Брендирование:** знак «Просто делай» (`assets/logo_prosto_delay.svg`) в навбаре и подвале, знак «Сделано в Атомграде» (`assets/logo_atomgrad.jpg`) в подвале как знак проекта. Палитра ведётся от логотипа: тёмно-синий `#1a3054` — основной, зелёный `#4ea634` — акцентный.
+**Брендирование — заказчика.** Основной бренд «Сделано в Атомграде»: знак `assets/logo_atomgrad_znak.png` в навбаре, в hero и в подвале. Знак ведущего «Просто делай» (`assets/logo_prosto_delay.svg`) — только в подвале, в блоке «Ведущий вебинара».
+
+Палитра и типографика сняты с сайта проекта — сделановатомграде.рф: синий `#20599D` (основной), красный `#E31E24` (редкий акцент), текст `#111418`, приглушённый `#6B7380`, границы `#DDE6EE`, фон белый с чередованием полос `#F4F7FA`. Шрифт Montserrat с системным запасным. Карточки со скруглением 24px, кнопки и бейджи — пилюли, заголовки крупные и жирные с отрицательным межбуквенным.
 
 ## Секции страницы
 
@@ -34,7 +36,7 @@
 
 # Промпты для генерации инфографики
 
-Все — 16:9, не меньше 1672×941, светлый лавандово-белый фон, текст по-русски с буквой «ё». Файлы кладём в `png/prezentaciya/` под именами `01_...png` … `10_...png`.
+Все — 16:9, не меньше 1672×941, белый фон в стиле сайта проекта, текст по-русски с буквой «ё». Файлы кладём в `png/prezentaciya/` под именами `01_...png` … `10_...png`.
 
 **Важно про брендирование:** в промптах намеренно не просим рисовать логотип — генераторы искажают знаки. Логотип накладывается на странице средствами HTML, а не внутри картинки.
 
@@ -42,20 +44,20 @@
 
 ```
 16:9 dense professional Russian infographic in the style of a modern data-journalism explainer poster
-(flat design with glossy 3D glass elements), light lavender-white background.
+(flat design with glossy 3D glass elements), clean white background with a subtle light-grey dotted grid pattern (#DDE6EE dots).
 
-Bold black title top center: "ИИ как помощник предпринимателя"
-Blue/purple subtitle beneath: "От вопроса в чате — до сотрудника, который доводит дело до конца"
+Bold near-black (#111418) title top center in a geometric sans-serif (Montserrat-like), tight letter-spacing: "ИИ как помощник предпринимателя"
+Deep blue (#20599D) subtitle beneath: "От вопроса в чате — до сотрудника, который доводит дело до конца"
 
 Central large glowing 3D glass motif: a hexagon containing a stylized human head silhouette with an
-upward arrow inside it, symbolizing an assistant that acts. Deep navy blue and fresh green glass,
+upward arrow inside it, symbolizing an assistant that acts. Deep blue (#20599D) and pale blue glass,
 subtle inner glow.
 
-Left column, pill-shaped section header "Что он уже делает": bordered panel with icon+label rows:
+Left column, deep blue (#20599D) pill-shaped section header "Что он уже делает": white panel with thin #DDE6EE border and 24px rounded corners, icon+label rows:
 "Разбирает сайт конкурента" (магнифier glass icon), "Пишет КП по вашему прайсу" (document icon),
 "Отвечает на жалобы" (chat bubble icon), "Готовит протокол планёрки" (microphone icon).
 
-Right column, pill-shaped section header "Из чего он состоит": bordered panel with icon+label rows:
+Right column, deep blue (#20599D) pill-shaped section header "Из чего он состоит": white panel with thin #DDE6EE border and 24px rounded corners, icon+label rows:
 "Роль и цель" (badge icon), "Знания — ваши документы" (folder icon),
 "Инструменты — почта, файлы, сайты" (wrench icon), "Ограничения — что нельзя" (shield icon).
 
@@ -72,21 +74,21 @@ No watermarks, no real company logos, all text in correct Russian.
 
 ```
 16:9 dense professional Russian infographic, flat design with glossy 3D glass elements,
-light lavender-white background.
+clean white background with a subtle light-grey dotted grid pattern (#DDE6EE dots).
 
-Bold black title top center: "Чат отвечает — помощник делает"
-Blue/purple subtitle beneath: "Одна и та же задача, два разных результата"
+Bold near-black (#111418) title top center in a geometric sans-serif (Montserrat-like), tight letter-spacing: "Чат отвечает — помощник делает"
+Deep blue (#20599D) subtitle beneath: "Одна и та же задача, два разных результата"
 
 Split composition, vertical dotted divider down the middle.
 
-Left half, pill-shaped header "ЧАТ" in muted grey-blue: a single glass speech bubble.
+Left half, pill-shaped header "ЧАТ" in muted grey (#6B7380): a single glass speech bubble.
 Below it one short arrow to a plain sheet of paper labelled "Текст, который вы дальше
 доделываете руками". Small grey caption: "Один шаг · знает только общее · вы дорабатываете".
 
-Right half, pill-shaped header "ПОМОЩНИК" in fresh green: a glowing glass gear-and-network motif
+Right half, pill-shaped header "ПОМОЩНИК" in deep blue (#20599D): a glowing glass gear-and-network motif
 with four sequential arrows forming a chain: "читает задачу" (eye icon) → "заходит на сайт"
 (globe icon) → "считает по прайсу" (calculator icon) → "собирает документ" (document icon).
-The chain ends in a finished document with a green check mark, labelled "Готово — можно отправлять".
+The chain ends in a finished document with a deep blue check mark, labelled "Готово — можно отправлять".
 Small caption: "Столько шагов, сколько нужно · пользуется вашими данными · доводит до результата".
 
 Bottom horizontal bar, pill header "Простой тест": one wide panel with large text:
@@ -99,12 +101,12 @@ No watermarks, no real company logos, all text in correct Russian.
 
 ```
 16:9 dense professional Russian infographic, flat design with glossy 3D glass elements,
-light lavender-white background.
+clean white background with a subtle light-grey dotted grid pattern (#DDE6EE dots).
 
-Bold black title top center: "Из чего собран помощник"
-Blue/purple subtitle beneath: "Шесть частей. Настройка — час, польза — годы"
+Bold near-black (#111418) title top center in a geometric sans-serif (Montserrat-like), tight letter-spacing: "Из чего собран помощник"
+Deep blue (#20599D) subtitle beneath: "Шесть частей. Настройка — час, польза — годы"
 
-Central large glowing 3D glass motif: a hexagonal core (deep navy to green gradient) with six
+Central large glowing 3D glass motif: a hexagonal core (deep blue #20599D to pale blue gradient) with six
 glass facets radiating outward, each connected by a thin glowing line to its own bordered card.
 
 Six cards arranged radially around the core, each with a pill header, an icon and one line of text:
@@ -117,7 +119,7 @@ Six cards arranged radially around the core, each with a pill header, an icon an
 
 Bottom horizontal bar with a before/after pair separated by a dotted arrow:
 left side, red crossed-out speech bubble: "Приносим извинения за доставленные неудобства";
-right side, green-outlined document: "Иван, сырники правда были пересушены — повару указали.
+right side, blue-outlined document: "Иван, сырники правда были пересушены — повару указали.
 Зайдите на этой неделе, кофе за наш счёт."
 
 No watermarks, no real company logos, all text in correct Russian.
@@ -127,19 +129,19 @@ No watermarks, no real company logos, all text in correct Russian.
 
 ```
 16:9 dense professional Russian infographic, flat design with glossy 3D glass elements,
-light lavender-white background.
+clean white background with a subtle light-grey dotted grid pattern (#DDE6EE dots).
 
-Bold black title top center: "Почему он выдумывает цены — и как это лечится"
-Blue/purple subtitle beneath: "Нейросеть начитана, но в вашей компании не работала"
+Bold near-black (#111418) title top center in a geometric sans-serif (Montserrat-like), tight letter-spacing: "Почему он выдумывает цены — и как это лечится"
+Deep blue (#20599D) subtitle beneath: "Нейросеть начитана, но в вашей компании не работала"
 
-Left half, pill-shaped header "БЕЗ ВАШИХ ДОКУМЕНТОВ" in warm red: a glass human-head motif
+Left half, pill-shaped header "БЕЗ ВАШИХ ДОКУМЕНТОВ" in accent red (#E31E24): a glass human-head motif
 surrounded by floating book icons and website icons, with a red question mark over the head.
 An arrow points to a price tag showing "≈ 1 200 ₽/м" with a red crossed-out stamp
 and caption "Цифра правдоподобная. И выдуманная."
 
-Right half, pill-shaped header "С ВАШИМИ ДОКУМЕНТАМИ" in fresh green: the same glass head motif,
+Right half, pill-shaped header "С ВАШИМИ ДОКУМЕНТАМИ" in deep blue (#20599D): the same glass head motif,
 now connected by a glowing line to a glass filing cabinet labelled "Прайс · Регламент · Договор".
-An arrow points to a price tag "1 450 ₽/м" with a green check mark and a small quote block
+An arrow points to a price tag "1 450 ₽/м" with a deep blue check mark and a small quote block
 underneath: "источник: прайс, строка 14".
 
 Bottom horizontal stepper across the full width: four connected numbered circles with dotted line:
@@ -155,20 +157,20 @@ No watermarks, no real company logos, all text in correct Russian.
 
 ```
 16:9 dense professional Russian infographic, flat design with glossy 3D glass elements,
-light lavender-white background.
+clean white background with a subtle light-grey dotted grid pattern (#DDE6EE dots).
 
-Bold black title top center: "Инструменты: помощник выходит за пределы чата"
-Blue/purple subtitle beneath: "Консультант по телефону становится сотрудником с доступами"
+Bold near-black (#111418) title top center in a geometric sans-serif (Montserrat-like), tight letter-spacing: "Инструменты: помощник выходит за пределы чата"
+Deep blue (#20599D) subtitle beneath: "Консультант по телефону становится сотрудником с доступами"
 
 Central large glowing 3D glass motif: a hexagonal assistant core with a tool-belt ring around it,
 six glowing connectors reaching outward to service icons: envelope (почта), spreadsheet (таблицы),
 calendar (календарь), folder (файлы), globe (сайты и поиск), microphone (запись встреч).
 
-Left column, pill-shaped section header "Что он делает сам": bordered panel with icon+label rows:
+Left column, deep blue (#20599D) pill-shaped section header "Что он делает сам": white panel with thin #DDE6EE border and 24px rounded corners, icon+label rows:
 "Читает входящие письма" (envelope icon), "Ищет и проверяет в интернете" (globe icon),
 "Считает и сводит в таблицу" (calculator icon), "Расшифровывает планёрку" (microphone icon).
 
-Right column, pill-shaped section header "Пример сквозной задачи": bordered panel with a vertical
+Right column, deep blue (#20599D) pill-shaped section header "Пример сквозной задачи": white panel with thin #DDE6EE border and 24px rounded corners, containing a vertical
 numbered chain: "1 Найти письма поставщиков за неделю" → "2 Вытащить позиции и цены" →
 "3 Свести в таблицу и отсортировать" → "4 Прислать готовый файл".
 
@@ -183,17 +185,17 @@ No watermarks, no real company logos, all text in correct Russian.
 
 ```
 16:9 dense professional Russian infographic, flat design with glossy 3D glass elements,
-light lavender-white background.
+clean white background with a subtle light-grey dotted grid pattern (#DDE6EE dots).
 
-Bold black title top center: "Skills: один раз описал — дальше в два слова"
-Blue/purple subtitle beneath: "Инструкция для нового сотрудника, только читает её помощник"
+Bold near-black (#111418) title top center in a geometric sans-serif (Montserrat-like), tight letter-spacing: "Skills: один раз описал — дальше в два слова"
+Deep blue (#20599D) subtitle beneath: "Инструкция для нового сотрудника, только читает её помощник"
 
-Left half, pill-shaped header "КАЖДЫЙ РАЗ ЗАНОВО" in muted grey: a glass sheet densely filled with
+Left half, pill-shaped header "КАЖДЫЙ РАЗ ЗАНОВО" in muted grey (#6B7380): a glass sheet densely filled with
 small grey text lines, a tired clock icon in the corner, caption "Полстраницы задания. Каждый раз."
 
 Dotted arrow pointing right, labelled "упаковали".
 
-Right half, pill-shaped header "ОДИН РАЗ И НАВСЕГДА" in fresh green: a glowing glass box with a
+Right half, pill-shaped header "ОДИН РАЗ И НАВСЕГДА" in deep blue (#20599D): a glowing glass box with a
 label tag reading "рассылка по базе", and a tiny speech bubble next to it containing just
 "сделай рассылку по этому файлу". Caption: "Процесс внутри. Снаружи — имя."
 
@@ -211,16 +213,16 @@ No watermarks, no real company logos, all text in correct Russian.
 
 ```
 16:9 dense professional Russian infographic, flat design with glossy 3D glass elements,
-light lavender-white background.
+clean white background with a subtle light-grey dotted grid pattern (#DDE6EE dots).
 
-Bold black title top center: "MCP: универсальная розетка для помощника"
-Blue/purple subtitle beneath: "Раньше под каждую программу — свой переходник. Теперь один стандарт"
+Bold near-black (#111418) title top center in a geometric sans-serif (Montserrat-like), tight letter-spacing: "MCP: универсальная розетка для помощника"
+Deep blue (#20599D) subtitle beneath: "Раньше под каждую программу — свой переходник. Теперь один стандарт"
 
-Left half, pill-shaped header "БЫЛО" in muted red: a tangled mess of differently-shaped plugs and
+Left half, pill-shaped header "БЫЛО" in accent red (#E31E24): a tangled mess of differently-shaped plugs and
 mismatched sockets connected by chaotic crossing cables, each pair a different colour and shape,
 caption "Каждое подключение — отдельная разработка".
 
-Right half, pill-shaped header "СТАЛО" in fresh green: one clean glowing glass socket strip with
+Right half, pill-shaped header "СТАЛО" in deep blue (#20599D): one clean glowing glass socket strip with
 identical plugs neatly connected, each plug labelled: "Почта", "Календарь", "Таблицы", "Telegram",
 "CRM", "Файлы". Caption "Один разъём — любой помощник".
 
@@ -236,10 +238,10 @@ No watermarks, no real company logos, all text in correct Russian.
 
 ```
 16:9 dense professional Russian infographic, flat design with glossy 3D glass elements,
-light lavender-white background.
+clean white background with a subtle light-grey dotted grid pattern (#DDE6EE dots).
 
-Bold black title top center: "Что помощнику можно, а что нельзя"
-Blue/purple subtitle beneath: "Генерация — ему, отправка — вам. По крайней мере первые два месяца"
+Bold near-black (#111418) title top center in a geometric sans-serif (Montserrat-like), tight letter-spacing: "Что помощнику можно, а что нельзя"
+Deep blue (#20599D) subtitle beneath: "Генерация — ему, отправка — вам. По крайней мере первые два месяца"
 
 Central motif: a large glowing glass traffic light rendered in 3D, tilted slightly, with three
 lit lenses — green, amber, red — each connected by a glowing line to its own bordered panel.
@@ -266,12 +268,12 @@ No watermarks, no real company logos, all text in correct Russian.
 
 ```
 16:9 dense professional Russian infographic, flat design with glossy 3D glass elements,
-light lavender-white background.
+clean white background with a subtle light-grey dotted grid pattern (#DDE6EE dots).
 
-Bold black title top center: "Ваш первый помощник: сегодня, за неделю, за месяц"
-Blue/purple subtitle beneath: "Порядок нарушать нельзя — девять из десяти провалов начинаются с третьей ступени"
+Bold near-black (#111418) title top center in a geometric sans-serif (Montserrat-like), tight letter-spacing: "Ваш первый помощник: сегодня, за неделю, за месяц"
+Deep blue (#20599D) subtitle beneath: "Порядок нарушать нельзя — девять из десяти провалов начинаются с третьей ступени"
 
-Central motif: three ascending glass steps rendered in 3D, navy-to-green gradient, with a small
+Central motif: three ascending glass steps rendered in 3D, deep blue (#20599D) to pale blue gradient, with a small
 glowing figure climbing them. Each step has its own bordered panel beside it.
 
 Step 1 panel, pill header "СЕГОДНЯ · 15 МИНУТ": icon+label rows — "Дайте роль и цель" (badge icon),
@@ -287,7 +289,7 @@ Step 3 panel, pill header "ЗА МЕСЯЦ": icon+label rows — "Упакуйт
 "Назначьте ответственного и метрику" (person icon).
 
 Bottom horizontal bar, pill header "Выбор процесса": a small 2x2 matrix diagram with axes
-"как часто" and "насколько рутинно", the top-right cell highlighted green and labelled
+"как часто" and "насколько рутинно", the top-right cell highlighted deep blue and labelled
 "ваш первый пилот".
 
 No watermarks, no real company logos, all text in correct Russian.
@@ -297,10 +299,10 @@ No watermarks, no real company logos, all text in correct Russian.
 
 ```
 16:9 dense professional Russian infographic, flat design with glossy 3D glass elements,
-light lavender-white background.
+clean white background with a subtle light-grey dotted grid pattern (#DDE6EE dots).
 
-Bold black title top center: "Где брать помощников и готовые решения"
-Blue/purple subtitle beneath: "Три полки: начать без вложений, вырасти, взять готовое"
+Bold near-black (#111418) title top center in a geometric sans-serif (Montserrat-like), tight letter-spacing: "Где брать помощников и готовые решения"
+Deep blue (#20599D) subtitle beneath: "Три полки: начать без вложений, вырасти, взять готовое"
 
 Three vertical bordered columns, each with a pill-shaped header and a glass 3D icon on top.
 
