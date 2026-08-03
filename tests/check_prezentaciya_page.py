@@ -107,6 +107,10 @@ class PrezentaciyaPageTest(unittest.TestCase):
                 src.startswith("png/prezentaciya/"),
                 f"инфографика лежит не в png/prezentaciya/: {src}",
             )
+            self.assertTrue(
+                (ROOT / src).is_file(),
+                f"файла инфографики нет на диске: {src}",
+            )
 
     def test_brand_assets_present(self):
         for asset in ASSETS:
