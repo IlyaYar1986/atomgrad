@@ -202,8 +202,9 @@ footer{background:var(--text);color:#c9d2dc;margin-top:0;padding:56px 24px 36px}
 .foot-title{font-weight:700;font-size:1.3rem;color:#fff;letter-spacing:-.5px;margin-bottom:6px}
 .foot-desc{font-size:.9rem;color:#9aa6b4;max-width:520px;line-height:1.65;margin-bottom:20px}
 .foot-lbl{font-size:.66rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#6b7380;margin-bottom:9px}
-.foot-author{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.foot-author{display:flex;align-items:center;gap:12px;margin-bottom:20px}
 .foot-author img{height:40px;width:auto;background:#fff;border-radius:9px;padding:5px}
+.foot-initials{flex:none;width:40px;height:40px;border-radius:9px;background:var(--blue);color:#fff;font-weight:700;font-size:.85rem;letter-spacing:.5px;display:flex;align-items:center;justify-content:center}
 .foot-author-name{font-weight:700;color:#fff;font-size:.95rem}
 .foot-author-role{font-size:.8rem;color:#9aa6b4}
 .foot-links{display:flex;flex-wrap:wrap;gap:9px}
@@ -828,12 +829,21 @@ footer{background:var(--text);color:#c9d2dc;margin-top:0;padding:56px 24px 36px}
       <p class="foot-title">Сделано в Атомграде</p>
       <p class="foot-desc">Сообщество предпринимателей, работающих в городах присутствия государственной корпорации «Росатом». Этот вебинар — часть образовательной программы проекта.</p>
 
-      <p class="foot-lbl">Ведущий вебинара</p>
+      <p class="foot-lbl">Организаторы обучения</p>
       <div class="foot-author">
         <img src="assets/logo_prosto_delay.svg" alt="Просто делай">
         <div>
+          <p class="foot-author-name">Проект «Просто делай»</p>
+          <p class="foot-author-role">Образовательные программы для предпринимателей</p>
+        </div>
+      </div>
+
+      <p class="foot-lbl">Эксперт вебинара</p>
+      <div class="foot-author">
+        <span class="foot-initials" aria-hidden="true">ИЧ</span>
+        <div>
           <p class="foot-author-name">Илья Чурилов</p>
-          <p class="foot-author-role">Проект «Просто делай» · внедрение ИИ-помощников в малом бизнесе</p>
+          <p class="foot-author-role">Внедрение ИИ-помощников в малом бизнесе</p>
         </div>
       </div>
       <!-- TODO: контакты — заменить плейсхолдеры на реальные ссылки перед публикацией -->
