@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <rect width="1080" height="1920" fill="#F4F7FA"/>
+  <rect width="1080" height="150" fill="#20599D"/>
+  <text x="60" y="92" font-family="Arial" font-weight="700" font-size="34" fill="#fff">СДЕЛАНО В АТОМГРАДЕ</text>
+  <text x="540" y="280" text-anchor="middle" font-family="Arial" font-weight="700" font-size="52" fill="#111418">РУЧНАЯ ПОДГОТОВКА</text>
+  <g font-family="Arial" font-weight="700" font-size="48" fill="#20599D">
+    <rect x="130" y="370" width="820" height="165" rx="30" fill="#fff"/><circle cx="220" cy="452" r="45" fill="#20599D"/><text x="220" y="468" text-anchor="middle" fill="#fff">1</text><text x="300" y="470">Уточнить детали</text>
+    <rect x="130" y="570" width="820" height="165" rx="30" fill="#fff"/><circle cx="220" cy="652" r="45" fill="#20599D"/><text x="220" y="668" text-anchor="middle" fill="#fff">2</text><text x="300" y="670">Открыть прайс</text>
+    <rect x="130" y="770" width="820" height="165" rx="30" fill="#fff"/><circle cx="220" cy="852" r="45" fill="#20599D"/><text x="220" y="868" text-anchor="middle" fill="#fff">3</text><text x="300" y="870">Посчитать варианты</text>
+    <rect x="130" y="970" width="820" height="165" rx="30" fill="#fff"/><circle cx="220" cy="1052" r="45" fill="#20599D"/><text x="220" y="1068" text-anchor="middle" fill="#fff">4</text><text x="300" y="1070">Оформить ответ</text>
+  </g>
+  <text x="540" y="1280" text-anchor="middle" font-family="Arial" font-weight="700" font-size="52" fill="#E31E24">А ВРЕМЯ ИДЁТ</text>
+  <rect x="70" y="1510" width="940" height="250" rx="34" fill="#173E69"/>
+  <text x="540" y="1610" text-anchor="middle" font-family="Arial" font-weight="700" font-size="45" fill="#fff">Пока менеджер ищет прайс</text>
+  <text x="540" y="1675" text-anchor="middle" font-family="Arial" font-weight="700" font-size="45" fill="#fff">и считает варианты, клиент уже</text>
+  <text x="540" y="1740" text-anchor="middle" font-family="Arial" font-weight="700" font-size="45" fill="#fff">пишет конкуренту.</text>
+</svg>

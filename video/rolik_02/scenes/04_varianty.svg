@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <rect width="1080" height="1920" fill="#F4F7FA"/><rect width="1080" height="150" fill="#20599D"/><text x="60" y="92" font-family="Arial" font-weight="700" font-size="34" fill="#fff">СДЕЛАНО В АТОМГРАДЕ</text>
+  <text x="540" y="280" text-anchor="middle" font-family="Arial" font-weight="700" font-size="50" fill="#111418">ВАШ ПРАЙС · ВАШИ УСЛОВИЯ</text>
+  <g font-family="Arial"><rect x="105" y="385" width="870" height="225" rx="28" fill="#fff"/><rect x="105" y="385" width="18" height="225" fill="#20599D"/><text x="170" y="470" font-weight="700" font-size="48" fill="#20599D">Вариант 1</text><text x="170" y="545" font-size="39" fill="#6B7380">Базовая комплектация</text>
+  <rect x="105" y="665" width="870" height="225" rx="28" fill="#fff"/><rect x="105" y="665" width="18" height="225" fill="#20599D"/><text x="170" y="750" font-weight="700" font-size="48" fill="#20599D">Вариант 2</text><text x="170" y="825" font-size="39" fill="#6B7380">Оптимальная комплектация</text>
+  <rect x="105" y="945" width="870" height="250" rx="28" fill="#FFF7E6"/><rect x="105" y="945" width="18" height="250" fill="#D08700"/><text x="170" y="1030" font-weight="700" font-size="48" fill="#D08700">Нужно уточнить</text><text x="170" y="1105" font-size="39" fill="#6B7380">Тип покрытия и ворота</text></g>
+  <text x="540" y="1360" text-anchor="middle" font-family="Arial" font-weight="700" font-size="46" fill="#20599D">ГОТОВО ЗА МИНУТЫ</text>
+  <rect x="70" y="1510" width="940" height="250" rx="34" fill="#173E69"/>
+  <text x="540" y="1610" text-anchor="middle" font-family="Arial" font-weight="700" font-size="45" fill="#fff">Готовит несколько вариантов</text>
+  <text x="540" y="1675" text-anchor="middle" font-family="Arial" font-weight="700" font-size="45" fill="#fff">и отмечает, что именно</text>
+  <text x="540" y="1740" text-anchor="middle" font-family="Arial" font-weight="700" font-size="45" fill="#fff">нужно уточнить.</text>
+</svg>

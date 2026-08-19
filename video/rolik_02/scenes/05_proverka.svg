@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <rect width="1080" height="1920" fill="#F4F7FA"/><rect width="1080" height="150" fill="#20599D"/><text x="60" y="92" font-family="Arial" font-weight="700" font-size="34" fill="#fff">СДЕЛАНО В АТОМГРАДЕ</text>
+  <rect x="125" y="320" width="830" height="930" rx="34" fill="#fff"/>
+  <text x="540" y="430" text-anchor="middle" font-family="Arial" font-weight="700" font-size="44" fill="#111418">КОММЕРЧЕСКОЕ ПРЕДЛОЖЕНИЕ</text>
+  <rect x="230" y="560" width="620" height="170" rx="30" fill="#F4F7FA"/><circle cx="310" cy="645" r="42" fill="#20599D"/><path d="M287 645l16 17 33-39" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/><text x="380" y="663" font-family="Arial" font-weight="700" font-size="46" fill="#20599D">ЦИФРЫ ПРОВЕРЕНЫ</text>
+  <rect x="290" y="835" width="500" height="165" rx="80" fill="#20599D"/><text x="540" y="938" text-anchor="middle" font-family="Arial" font-weight="700" font-size="54" fill="#fff">ОТПРАВИТЬ</text>
+  <text x="540" y="1150" text-anchor="middle" font-family="Arial" font-weight="700" font-size="42" fill="#20599D">РЕШЕНИЕ ОСТАЁТСЯ ЗА ЧЕЛОВЕКОМ</text>
+  <rect x="70" y="1510" width="940" height="250" rx="34" fill="#173E69"/>
+  <text x="540" y="1610" text-anchor="middle" font-family="Arial" font-weight="700" font-size="45" fill="#fff">Менеджеру остаётся</text>
+  <text x="540" y="1675" text-anchor="middle" font-family="Arial" font-weight="700" font-size="45" fill="#fff">проверить цифры</text>
+  <text x="540" y="1740" text-anchor="middle" font-family="Arial" font-weight="700" font-size="45" fill="#fff">и отправить ответ.</text>
+</svg>

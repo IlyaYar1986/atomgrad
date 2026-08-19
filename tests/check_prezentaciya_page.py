@@ -18,6 +18,10 @@ ASSETS = [
     ROOT / "assets" / "logo_atomgrad_znak.png",   # основной бренд — знак заказчика
     ROOT / "assets" / "logo_prosto_delay.svg",    # знак ведущего в подвале
 ]
+# Инфографика, промпт для которой написан, а PNG ещё не сгенерирован.
+# Такие картинки на диске не проверяются, но обязаны иметь подпись-заглушку.
+# Файл появился — убрать отсюда, и проверка на диске включится сама.
+PENDING_PNG = set()
 
 
 class PageParser(HTMLParser):
@@ -101,16 +105,26 @@ class PrezentaciyaPageTest(unittest.TestCase):
 
     def test_infographics_paths(self):
         png_srcs = [src for src in self.parser.img_srcs if src.startswith("png/")]
-        self.assertEqual(len(png_srcs), 10, "ожидается 10 инфографик")
+        self.assertEqual(len(png_srcs), 11, "ожидается 11 инфографик")
         for src in png_srcs:
             self.assertTrue(
                 src.startswith("png/prezentaciya/"),
                 f"инфографика лежит не в png/prezentaciya/: {src}",
             )
+            if src in PENDING_PNG:
+                continue
             self.assertTrue(
                 (ROOT / src).is_file(),
                 f"файла инфографики нет на диске: {src}",
             )
+
+    def test_pending_infographics_have_fallback_caption(self):
+        """Пока PNG не сгенерирован, страница обязана показывать подпись-заглушку."""
+        for src in PENDING_PNG:
+            self.assertIn(src, self.html, f"заглушка ссылается на несуществующий src: {src}")
+            block = self.html.split(src, 1)[1].split("</figure>", 1)[0]
+            self.assertIn("img-missing-caption", block, f"нет подписи-заглушки для {src}")
+            self.assertIn("onerror", block, f"нет onerror-обработчика для {src}")
 
     def test_brand_assets_present(self):
         for asset in ASSETS:
@@ -164,6 +178,9 @@ class PrezentaciyaPageTest(unittest.TestCase):
             "Из чего собран помощник",
             "генерация — ему, отправка — вам",
             "Персональные данные",
+            "Какие данные можно отдавать помощнику",
+            "по которому нельзя постучать в конкретную дверь",
+            "обезличивание с ключом — это не обезличивание",
             "Выберите один процесс",
         ]
         for marker in markers:
@@ -209,16 +226,16 @@ class PlanTest(unittest.TestCase):
         self.assertTrue((ROOT / "Docs" / "konspekt_vebinara.md").is_file())
         self.assertTrue((ROOT / "Docs" / "prezentaciya_plan.md").is_file())
 
-    def test_plan_has_all_ten_prompts(self):
+    def test_plan_has_all_prompts(self):
         plan = (ROOT / "Docs" / "prezentaciya_plan.md").read_text(encoding="utf-8")
-        for number in range(1, 11):
+        for number in range(1, 12):
             self.assertIn(f"## {number:02d} ·", plan, f"нет промпта {number:02d} в плане")
 
     def test_every_prompt_carries_the_atomic_background(self):
         plan = (ROOT / "Docs" / "prezentaciya_plan.md").read_text(encoding="utf-8")
         self.assertEqual(
-            plan.count("BACKGROUND LAYER"), 10,
-            "сквозной атомный фон должен быть во всех десяти промптах — иначе серия распадётся",
+            plan.count("BACKGROUND LAYER"), 11,
+            "сквозной атомный фон должен быть во всех одиннадцати промптах — иначе серия распадётся",
         )
 
     def test_prompts_use_client_palette(self):

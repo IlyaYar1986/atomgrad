@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <rect width="1080" height="1920" fill="#20599D"/>
+  <circle cx="540" cy="310" r="125" fill="none" stroke="#91B1D0" stroke-width="8"/><circle cx="540" cy="310" r="24" fill="#fff"/><circle cx="540" cy="185" r="18" fill="#fff"/><circle cx="648" cy="372" r="18" fill="#fff"/><circle cx="432" cy="372" r="18" fill="#fff"/>
+  <text x="540" y="600" text-anchor="middle" font-family="Arial" font-weight="700" font-size="70" fill="#fff">ИИ КАК ПОМОЩНИК</text>
+  <text x="540" y="690" text-anchor="middle" font-family="Arial" font-weight="700" font-size="70" fill="#fff">ПРЕДПРИНИМАТЕЛЯ</text>
+  <text x="540" y="790" text-anchor="middle" font-family="Arial" font-size="44" fill="#DDE6EE">Реальные сценарии применения</text>
+  <rect x="220" y="930" width="640" height="180" rx="90" fill="#fff"/><text x="540" y="1040" text-anchor="middle" font-family="Arial" font-weight="700" font-size="57" fill="#20599D">ЖИВОЕ ДЕМО</text>
+  <text x="540" y="1250" text-anchor="middle" font-family="Arial" font-weight="700" font-size="45" fill="#fff">ОТ ЗАЯВКИ ДО ГОТОВОГО ОТВЕТА</text>
+  <rect x="70" y="1510" width="940" height="250" rx="34" fill="#173E69"/>
+  <text x="540" y="1610" text-anchor="middle" font-family="Arial" font-weight="700" font-size="43" fill="#fff">На вебинаре покажем весь процесс —</text>
+  <text x="540" y="1680" text-anchor="middle" font-family="Arial" font-weight="700" font-size="43" fill="#fff">от заявки до готового</text>
+  <text x="540" y="1750" text-anchor="middle" font-family="Arial" font-weight="700" font-size="43" fill="#fff">коммерческого предложения.</text>
+</svg>

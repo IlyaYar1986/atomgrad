@@ -17,7 +17,7 @@
 | 4 | `s4` | Инструменты: за пределами чата | 05 | — |
 | 5 | `s5` | Skills: упакованное умение | 06 | — |
 | 6 | `s6` | MCP: внутри ваших систем | 07 | — |
-| 7 | `s7` | Контроль, риски и деньги | 08 | `kalkulyator_ekonomii.html` |
+| 7 | `s7` | Контроль, риски и деньги | 08, **11** | `kalkulyator_ekonomii.html` |
 | 8 | `s8` | Ваш первый помощник | 09 | `matrica_processov.html` |
 | 9 | `s9` | Где брать готовое | 10 | `karta_servisov.html` |
 | — | `checklist` | Чек-лист готовности | — | localStorage |
@@ -44,7 +44,7 @@
 
 Проект называется «Сделано в Атомграде», у заказчика в знаке — атом. Поэтому вся серия строится на визуальном языке атомной энергетики и науки. Это не украшение: **каждая метафора работает на смысл блока**, иначе картинка превращается в открытку.
 
-**Фоновый слой — одинаковый во всех десяти картинках.** Он и делает серию серией:
+**Фоновый слой — одинаковый во всех одиннадцати картинках.** Он и делает серию серией:
 
 - Одна-две **огромные орбитальные окружности**, уходящие за края кадра, прозрачностью 6–8 % синего `#20599D` — как будто кадр вырезан из схемы атома.
 - **Пунктирные эллиптические траектории** электронов, тонкие, прозрачностью 10 %, пересекающиеся под разными углами.
@@ -348,8 +348,8 @@ Outer red panel, pill header "НЕ ТРОГАЕТ": icon+label rows — "Пла�
 "Кадровые решения" (people icon), "Обещания скидок" (percent icon).
 
 Bottom horizontal bar, deep blue pill header "Персональные данные": wide white panel:
-"Паспорта, телефоны и адреса клиентов в облако не загружаем. Чувствительное — на своём
-компьютере. Сомневаетесь — обезличивайте: «Клиент А» вместо фамилии."
+"Что именно можно загружать — на следующей схеме. Три группы: не грузим никогда,
+грузим после замены, грузим как есть."
 
 No watermarks, no real company logos, all text in correct Russian.
 ```
@@ -428,13 +428,65 @@ Bottom horizontal bar, deep blue pill header "Правило выбора": wide
 No watermarks, no real company logos, all text in correct Russian.
 ```
 
+## 11 · Какие данные можно отдавать помощнику
+
+Ставится в секции 7, между таблицей зон доступа и карточками-светофором. Файл — `png/prezentaciya/11_kakie_dannye.png`.
+
+```
+16:9 dense professional Russian infographic, flat design with glossy 3D glass elements, white background.
+
+BACKGROUND LAYER: huge orbital circle off the frame edges plus dashed elliptical electron
+trajectories, deep blue #20599D at 6-8% opacity, over a subtle #DDE6EE dotted grid. Barely visible.
+
+Bold near-black (#111418) title top center in a geometric sans-serif, tight letter-spacing:
+"Какие данные можно отдавать помощнику"
+Deep blue (#20599D) subtitle beneath: "Три группы. Первая не спасается обезличиванием"
+
+METAPHOR — a three-stage airlock: material passes through gates that filter it.
+
+CENTRAL LAYOUT: three tall vertical panels side by side, equal width, white fill, #DDE6EE border,
+24px rounded corners, each with a thick 6px colored top edge and a pill header in that color.
+
+LEFT PANEL, red (#E31E24) top edge, pill header "НЕ ГРУЗИМ НИКОГДА": a closed red glass padlock
+icon at the top, then icon+label rows — "Паспорт, СНИЛС, ИНН" (passport icon),
+"Карты и выписки" (bank card icon), "Медицинские документы" (cross icon),
+"Фото лица, запись голоса" (face-scan icon), "Данные детей" (small figure icon),
+"Пароли и доступы" (key icon), "База клиентов целиком" (stacked database icon),
+"Зарплаты и кадровые дела" (folder icon).
+Footer strip inside the panel, light red fill: "Обезличивание здесь не помогает"
+
+MIDDLE PANEL, amber (#B45309) top edge, pill header "ТОЛЬКО ПОСЛЕ ЗАМЕНЫ": an amber glass funnel
+or filter icon at the top, then four before-after rows, each showing the old value struck through
+in red and an arrow to the new value in green (#2E7D32):
+"Иванов Пётр → Клиент А"
+"+7 927 431-15-47 → +7 9ХХ ХХХ-ХХ-47"
+"ул. Садовая, 8 → СНТ «Мичуринский»"
+"ДГ-2026-0147 → Договор 1"
+Footer strip inside the panel, light amber fill: "Замена — до загрузки, а не после"
+
+RIGHT PANEL, green (#2E7D32) top edge, pill header "МОЖНО КАК ЕСТЬ": an open green glass gate icon
+at the top, then icon+label rows — "Регламенты и инструкции" (document icon),
+"Прайс" (price tag icon), "Скрипты продаж" (speech bubble icon),
+"Тексты сайта" (globe icon), "Данные юрлиц из ЕГРЮЛ" (building icon),
+"Суммы, даты, объёмы" (chart icon).
+Footer strip inside the panel, light green fill: "И это 80% вашей работы"
+
+Bottom horizontal bar, deep blue pill header "Правило для адреса": wide white panel:
+"Оставляем тот адрес, по которому нельзя постучать в конкретную дверь. Многоквартирный дом —
+улицу и дом можно, квартиру нет. Частный сектор и СНТ — номер дома убираем."
+
+Bottom numbered stepper strip: 11 of 11.
+
+No watermarks, no real company logos, all text in correct Russian.
+```
+
 ---
 
 # Что нужно от заказчика перед публикацией
 
 - **Ссылки на ведущего** для подвала: Telegram-канал, сайт. Сейчас в `index.html` стоят плейсхолдеры, помеченные комментарием `TODO: контакты`. Почта `churilovilya74@gmail.com` уже проставлена, ссылка на сделановатомграде.рф тоже.
 - **Подтверждение имени** в подвале: сейчас указан «Илья Чурилов» — выведено из адреса почты.
-- **Инфографика** — десять PNG по промптам выше в `png/prezentaciya/`. До их появления страница показывает подписи-заглушки и выглядит целой.
+- **Инфографика** — одиннадцать PNG по промптам выше в `png/prezentaciya/`, все готовы. Формат серии: 1672×941, вес 600–750 КБ после `pngquant --quality=65-85`.
 
 ## Если генератор не справляется с атомным фоном
 

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <rect width="1080" height="1920" fill="#F4F7FA"/>
+  <rect width="1080" height="150" fill="#20599D"/><text x="60" y="92" font-family="Arial" font-weight="700" font-size="34" fill="#fff">СДЕЛАНО В АТОМГРАДЕ</text>
+  <text x="540" y="275" text-anchor="middle" font-family="Arial" font-weight="700" font-size="48" fill="#111418">ИИ-ПОМОЩНИК ГОТОВИТ ОТВЕТ</text>
+  <circle cx="540" cy="560" r="150" fill="#20599D"/><circle cx="540" cy="560" r="105" fill="#fff"/><circle cx="540" cy="560" r="42" fill="#20599D"/>
+  <circle cx="540" cy="560" r="225" fill="none" stroke="#91B1D0" stroke-width="5"/><circle cx="540" cy="335" r="22" fill="#E31E24"/><circle cx="735" cy="672" r="22" fill="#20599D"/><circle cx="345" cy="672" r="22" fill="#20599D"/>
+  <g font-family="Arial" font-weight="700" text-anchor="middle"><rect x="130" y="880" width="820" height="150" rx="28" fill="#fff"/><text x="540" y="973" font-size="48" fill="#20599D">Разбирает сообщение</text><rect x="130" y="1070" width="820" height="150" rx="28" fill="#fff"/><text x="540" y="1163" font-size="48" fill="#20599D">Берёт цены из вашего файла</text><rect x="130" y="1260" width="820" height="150" rx="28" fill="#fff"/><text x="540" y="1353" font-size="48" fill="#20599D">Не придумывает условия</text></g>
+  <rect x="70" y="1510" width="940" height="250" rx="34" fill="#173E69"/>
+  <text x="540" y="1610" text-anchor="middle" font-family="Arial" font-weight="700" font-size="45" fill="#fff">ИИ-помощник разбирает сообщение</text>
+  <text x="540" y="1675" text-anchor="middle" font-family="Arial" font-weight="700" font-size="45" fill="#fff">и берёт цены только</text>
+  <text x="540" y="1740" text-anchor="middle" font-family="Arial" font-weight="700" font-size="45" fill="#fff">из вашего файла.</text>
+</svg>

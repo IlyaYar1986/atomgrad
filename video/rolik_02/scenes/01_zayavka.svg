@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <rect width="1080" height="1920" fill="#F4F7FA"/>
+  <rect width="1080" height="150" fill="#20599D"/>
+  <text x="60" y="92" font-family="Arial" font-weight="700" font-size="34" fill="#fff">СДЕЛАНО В АТОМГРАДЕ</text>
+  <rect x="90" y="250" width="900" height="1120" rx="34" fill="#fff" stroke="#DDE6EE" stroke-width="7"/>
+  <text x="540" y="340" text-anchor="middle" font-family="Arial" font-weight="700" font-size="42" fill="#20599D">НОВАЯ ЗАЯВКА</text>
+  <rect x="175" y="410" width="730" height="790" rx="48" fill="#F4F7FA" stroke="#DDE6EE" stroke-width="5"/>
+  <circle cx="260" cy="505" r="42" fill="#20599D"/>
+  <rect x="330" y="465" width="430" height="78" rx="34" fill="#DDE6EE"/>
+  <rect x="230" y="625" width="590" height="145" rx="28" fill="#DCE8F4"/>
+  <text x="270" y="686" font-family="Arial" font-size="38" fill="#111418">Нужно примерно 40 метров</text>
+  <text x="270" y="735" font-family="Arial" font-size="38" fill="#111418">забора.</text>
+  <rect x="335" y="820" width="515" height="170" rx="30" fill="#20599D"/>
+  <text x="592" y="920" text-anchor="middle" font-family="Arial" font-weight="700" font-size="54" fill="#fff">Сколько стоит?</text>
+  <text x="540" y="1310" text-anchor="middle" font-family="Arial" font-weight="700" font-size="50" fill="#E31E24">КЛИЕНТ УЖЕ ЖДЁТ</text>
+  <rect x="70" y="1510" width="940" height="250" rx="34" fill="#173E69"/>
+  <text x="540" y="1605" text-anchor="middle" font-family="Arial" font-weight="700" font-size="45" fill="#fff">Вот обычная заявка: клиент хочет забор,</text>
+  <text x="540" y="1670" text-anchor="middle" font-family="Arial" font-weight="700" font-size="45" fill="#fff">но не знает точный метраж</text>
+  <text x="540" y="1735" text-anchor="middle" font-family="Arial" font-weight="700" font-size="45" fill="#fff">и комплектацию.</text>
+</svg>

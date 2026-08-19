@@ -1,0 +1,19 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,Arial,48,&H00FFFFFF,&H000000FF,&H00264A72,&HA8001730,-1,0,0,0,100,100,0,0,3,2,0,2,92,92,155,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:05.50,Sub,,0,0,0,,Вот обычная заявка: клиент хочет забор,\Nно не знает точный метраж и комплектацию.
+Dialogue: 0,0:00:05.50,0:00:11.50,Sub,,0,0,0,,Пока менеджер ищет прайс и считает варианты,\Nклиент уже пишет конкуренту.
+Dialogue: 0,0:00:11.50,0:00:17.50,Sub,,0,0,0,,ИИ-помощник разбирает сообщение\Nи берёт цены только из вашего файла.
+Dialogue: 0,0:00:17.50,0:00:23.00,Sub,,0,0,0,,Готовит несколько вариантов и отмечает,\Nчто нужно уточнить.
+Dialogue: 0,0:00:23.00,0:00:26.50,Sub,,0,0,0,,Менеджеру остаётся проверить цифры\Nи отправить ответ.
+Dialogue: 0,0:00:26.50,0:00:30.00,Sub,,0,0,0,,На вебинаре покажем весь процесс —\Nот заявки до готового предложения.
