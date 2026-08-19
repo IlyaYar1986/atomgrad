@@ -91,11 +91,14 @@ main section.sec:nth-of-type(even){background:var(--blue-pale)}
 
 /* DEMO CARDS (агенты) */
 .agents{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px}
-.agent{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:22px 24px}
+.agent{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:22px 24px;display:flex;flex-direction:column}
+.agent-dl{margin-top:auto;padding-top:14px}
+.agent-dl a{display:inline-flex;align-items:center;gap:8px;padding:9px 17px;border-radius:100px;border:1px solid var(--blue);color:var(--blue);background:transparent;font-size:.82rem;font-weight:700;text-decoration:none;transition:background .2s,color .2s}
+.agent-dl a:hover{background:var(--blue);color:#fff}
 .agent-num{font-size:.66rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--blue);margin-bottom:7px}
 .agent-name{font-weight:700;font-size:1.05rem;margin-bottom:8px;letter-spacing:-.3px}
 .agent-what{font-size:.88rem;color:var(--muted);line-height:1.65;margin-bottom:11px}
-.agent-hook{font-size:.84rem;background:var(--blue-lt);border-radius:12px;padding:9px 13px;color:var(--blue-dk);font-weight:600}
+.agent-hook{font-size:.84rem;background:var(--blue-lt);border-radius:12px;padding:9px 13px;color:var(--blue-dk);font-weight:600;margin-bottom:2px}
 
 /* CALLOUTS */
 .note-callout{background:var(--blue-lt);border-radius:var(--r);padding:20px 24px;margin-bottom:24px}
@@ -236,6 +239,12 @@ footer{background:var(--text);color:#c9d2dc;margin-top:0;padding:56px 24px 36px}
 .foot-initials{flex:none;width:40px;height:40px;border-radius:9px;background:var(--blue);color:#fff;font-weight:700;font-size:.85rem;letter-spacing:.5px;display:flex;align-items:center;justify-content:center}
 .foot-author-name{font-weight:700;color:#fff;font-size:.95rem}
 .foot-author-role{font-size:.8rem;color:#9aa6b4}
+a.foot-mark{display:block}
+.foot-mark img{display:block;width:100%;height:100%;object-fit:contain}
+a.foot-title,a.foot-author{text-decoration:none;color:inherit}
+a.foot-title:hover{text-decoration:underline}
+a.foot-author{transition:opacity .2s}
+a.foot-author:hover{opacity:.75}
 .foot-links{display:flex;flex-wrap:wrap;gap:9px}
 .foot-links a{padding:9px 18px;border-radius:100px;background:transparent;border:1px solid rgba(255,255,255,.22);color:#fff;font-size:.83rem;font-weight:600;text-decoration:none;transition:background .2s,border-color .2s}
 .foot-links a:hover{background:var(--blue);border-color:var(--blue)}
@@ -782,7 +791,7 @@ footer{background:var(--text);color:#c9d2dc;margin-top:0;padding:56px 24px 36px}
   <div class="sec-head fade">
     <div class="num-badge badge-flat">★</div>
     <h2 class="sec-title">Десять помощников, которые были на экране</h2>
-    <p class="sec-desc">Ни один из них не программировался — все описаны обычными словами. Пять первых показывались вживую, остальные — по запросу зала.</p>
+    <p class="sec-desc">Ни один из них не программировался — все описаны обычными словами. Пять первых показывались вживую, остальные — по запросу зала. Каждого можно забрать себе: в архиве папка помощника с промптом и шаблонами знаний, но без наших данных — при первом запуске он расспросит про ваш бизнес.</p>
   </div>
 
   <div class="agents fade">
@@ -791,60 +800,90 @@ footer{background:var(--text);color:#c9d2dc;margin-top:0;padding:56px 24px 36px}
       <p class="agent-name">Разведчик конкурентов</p>
       <p class="agent-what">Сначала расспрашивает про ваш бизнес, потом сам находит конкурентов и обходит их сайты. Возвращает разбор: на чём держатся, где дыры, что противопоставить.</p>
       <p class="agent-hook">Полдня работы руками — за полторы минуты</p>
+      <p class="agent-dl">
+        <a href="downloads/01_razvedchik-konkurenta.zip" download>↓ Скачать шаблон</a>
+      </p>
     </article>
     <article class="agent">
       <p class="agent-num">Демо 2</p>
       <p class="agent-name">Продавец: заявка → КП</p>
       <p class="agent-what">Из сумбурного сообщения в мессенджере делает коммерческое предложение: расчёт по вашему прайсу, три варианта, сроки, вопрос об уточнении.</p>
       <p class="agent-hook">Сколько заявок вы теряете из-за ответа через два дня?</p>
+      <p class="agent-dl">
+        <a href="downloads/02_prodavec-kp.zip" download>↓ Скачать шаблон</a>
+      </p>
     </article>
     <article class="agent">
       <p class="agent-num">Демо 3</p>
       <p class="agent-name">Рассыльщик персональных писем</p>
       <p class="agent-what">Читает список организаций из таблицы, заходит на каждый сайт и пишет письмо со ссылкой на то, что нашёл именно у них.</p>
       <p class="agent-hook">Тридцать разных писем, а не тридцать копий</p>
+      <p class="agent-dl">
+        <a href="downloads/03_rassylshchik.zip" download>↓ Скачать шаблон</a>
+      </p>
     </article>
     <article class="agent">
       <p class="agent-num">Демо 4</p>
       <p class="agent-name">Секретарь планёрки</p>
       <p class="agent-what">Расшифровывает запись совещания и делает протокол: решения, задачи, ответственные, сроки. Работает на вашем компьютере — запись никуда не уходит.</p>
       <p class="agent-hook">У всех есть совещания и ни у кого нет протоколов</p>
+      <p class="agent-dl">
+        <a href="downloads/04_sekretar-planerki.zip" download>↓ Скачать шаблон</a>
+      </p>
     </article>
     <article class="agent">
       <p class="agent-num">Демо 5</p>
       <p class="agent-name">Агент поддержки</p>
       <p class="agent-what">Отвечает на жалобы клиентов. Собирался на глазах зала по частям: роль → цель → инструкция → знания → ограничения.</p>
       <p class="agent-hook">Видно, как из отписки получается письмо</p>
+      <p class="agent-dl">
+        <a href="downloads/05_agent-podderzhki.zip" download>↓ Скачать шаблон</a>
+      </p>
     </article>
     <article class="agent">
       <p class="agent-num">Резерв</p>
       <p class="agent-name">Кадровик-скринер</p>
       <p class="agent-what">Разбирает пачку резюме под требования вакансии: кто подходит, кто нет, что уточнить у каждого на собеседовании.</p>
       <p class="agent-hook">Для города, где нужного человека ищут полгода</p>
+      <p class="agent-dl">
+        <a href="downloads/06_kadrovik-skriner.zip" download>↓ Скачать шаблон</a>
+      </p>
     </article>
     <article class="agent">
       <p class="agent-num">Резерв</p>
       <p class="agent-name">Закупщик</p>
       <p class="agent-what">Собирает предложения поставщиков из почты, сводит в таблицу, сравнивает по цене и срокам, отмечает подозрительные позиции.</p>
       <p class="agent-hook">Экономия начинается со сравнения, на которое нет времени</p>
+      <p class="agent-dl">
+        <a href="downloads/07_zakupshchik.zip" download>↓ Скачать шаблон</a>
+      </p>
     </article>
     <article class="agent">
       <p class="agent-num">Резерв</p>
       <p class="agent-name">Финансовый аналитик</p>
       <p class="agent-what">Строит модель нового направления: воронка, юнит-экономика, точка безубыточности, окупаемость, три сценария. На выходе — Excel с живыми формулами.</p>
       <p class="agent-hook">Ответ на вопрос «а посчитать он может?»</p>
+      <p class="agent-dl">
+        <a href="downloads/08_finansovyy-analitik.zip" download>↓ Скачать шаблон</a>
+      </p>
     </article>
     <article class="agent">
       <p class="agent-num">Резерв</p>
       <p class="agent-name">Контент-фабрика</p>
       <p class="agent-what">Из одного описания продукта делает пост, текст для лендинга, скрипт продаж и письмо клиенту.</p>
       <p class="agent-hook">Для собственника, который сам себе маркетолог</p>
+      <p class="agent-dl">
+        <a href="downloads/09_kontent-fabrika.zip" download>↓ Скачать шаблон</a>
+      </p>
     </article>
     <article class="agent">
       <p class="agent-num">Резерв</p>
       <p class="agent-name">Тренажёр переговоров</p>
       <p class="agent-what">Отыгрывает трудного клиента по сценарию, затем разбирает диалог по чек-листу и ставит оценку.</p>
       <p class="agent-hook">Тренировка без риска потерять живого клиента</p>
+      <p class="agent-dl">
+        <a href="downloads/10_trenazher-peregovorov.zip" download>↓ Скачать шаблон</a>
+      </p>
     </article>
   </div>
 </section>
@@ -988,9 +1027,11 @@ footer{background:var(--text);color:#c9d2dc;margin-top:0;padding:56px 24px 36px}
 
 <footer>
   <div class="foot-inner">
-    <img class="foot-mark" src="assets/logo_atomgrad_znak.png" alt="Сделано в Атомграде">
+    <a class="foot-mark" href="https://xn--80aaaggcfcg7cojnc6aez.xn--p1ai/" target="_blank" rel="noopener">
+      <img src="assets/logo_atomgrad_znak.png" alt="Сделано в Атомграде">
+    </a>
     <div>
-      <p class="foot-title">Сделано в Атомграде</p>
+      <a class="foot-title" href="https://xn--80aaaggcfcg7cojnc6aez.xn--p1ai/" target="_blank" rel="noopener">Сделано в Атомграде</a>
       <p class="foot-desc">Сообщество предпринимателей, работающих в городах присутствия государственной корпорации «Росатом». Этот вебинар — часть образовательной программы проекта.</p>
 
       <p class="foot-lbl">Организаторы обучения</p>
@@ -1003,18 +1044,18 @@ footer{background:var(--text);color:#c9d2dc;margin-top:0;padding:56px 24px 36px}
       </div>
 
       <p class="foot-lbl">Эксперт вебинара</p>
-      <div class="foot-author">
+      <a class="foot-author" href="https://vk.ru/ilyachurilov" target="_blank" rel="noopener">
         <span class="foot-initials" aria-hidden="true">ИЧ</span>
         <div>
           <p class="foot-author-name">Илья Чурилов</p>
           <p class="foot-author-role">Внедрение ИИ-помощников в малом бизнесе</p>
         </div>
-      </div>
-      <!-- TODO: контакты — заменить плейсхолдеры на реальные ссылки перед публикацией -->
+      </a>
       <div class="foot-links">
-        <a href="mailto:churilovilya74@gmail.com">Написать на почту</a>
-        <a href="#" data-placeholder="telegram">Telegram-канал</a>
-        <a href="#" data-placeholder="site">Сайт проекта</a>
+        <a href="mailto:ilya1986@mail.ru">ilya1986@mail.ru</a>
+        <a href="https://t.me/churilov_ai" target="_blank" rel="noopener">Telegram-канал @churilov_ai</a>
+        <a href="https://max.ru/join/fioePu6Za13MA7Akn8TCK6h7eJWFHvXbFA10VFG4DhI" target="_blank" rel="noopener">Канал в MAX</a>
+        <a href="https://vk.ru/ilyachurilov" target="_blank" rel="noopener">ВКонтакте</a>
         <a href="https://xn--80aaaggcfcg7cojnc6aez.xn--p1ai/" target="_blank" rel="noopener">сделановатомграде.рф</a>
       </div>
     </div>

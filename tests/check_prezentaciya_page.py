@@ -1,6 +1,8 @@
 """Структурные проверки сайта-презентации «ИИ как помощник предпринимателя»."""
 
+import re
 import unittest
+import zipfile
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -22,6 +24,25 @@ ASSETS = [
 # Такие картинки на диске не проверяются, но обязаны иметь подпись-заглушку.
 # Файл появился — убрать отсюда, и проверка на диске включится сама.
 PENDING_PNG = set()
+
+# Скачиваемые шаблоны агентов — порядок совпадает с порядком карточек в секции «Агенты»
+SHABLONY = [
+    "01_razvedchik-konkurenta",
+    "02_prodavec-kp",
+    "03_rassylshchik",
+    "04_sekretar-planerki",
+    "05_agent-podderzhki",
+    "06_kadrovik-skriner",
+    "07_zakupshchik",
+    "08_finansovyy-analitik",
+    "09_kontent-fabrika",
+    "10_trenazher-peregovorov",
+]
+# Данные, которые не должны уехать участнику ни в одном архиве
+ZAPRESHCHENO_V_ARHIVE = (
+    "demo/", "profil_klienta.md", "prays.md", "vakansiya.md", "slovar.md",
+    "organizacii.csv", "nashe_predlozhenie.md", "chto_zakupaem.md", "ZAPUSK.md",
+)
 
 
 class PageParser(HTMLParser):
@@ -144,8 +165,17 @@ class PrezentaciyaPageTest(unittest.TestCase):
             self.assertNotIn(stale, self.html, f"осталась прежняя палитра: {stale}")
 
     def test_author_contacts_present(self):
-        self.assertIn("churilovilya74@gmail.com", self.html, "нет контакта ведущего")
+        for link in (
+            "mailto:ilya1986@mail.ru",
+            "https://t.me/churilov_ai",
+            "https://max.ru/join/",
+            "https://vk.ru/ilyachurilov",
+        ):
+            self.assertIn(link, self.html, f"нет контакта ведущего: {link}")
         self.assertIn("Просто делай", self.html, "нет названия проекта в подвале")
+
+    def test_no_placeholder_links_in_footer(self):
+        self.assertNotIn("data-placeholder", self.html, "в подвале остались ссылки-плейсхолдеры")
 
     def test_no_external_cdn(self):
         for marker in ("cdn.", "googleapis.com", "unpkg.com", "jsdelivr"):
@@ -186,6 +216,46 @@ class PrezentaciyaPageTest(unittest.TestCase):
         for marker in markers:
             self.assertIn(marker.lower(), self.html.lower(), f"нет ключевого маркера: {marker}")
 
+    def test_each_agent_card_has_download_button(self):
+        ssylki = re.findall(r'href="downloads/([^"]+\.zip)" download', self.html)
+        self.assertEqual(
+            ssylki, [f"{imya}.zip" for imya in SHABLONY],
+            "кнопки скачивания должны стоять на всех десяти карточках и в том же порядке",
+        )
+
+    def test_agent_templates_exist_on_disk(self):
+        for imya in SHABLONY:
+            arhiv = ROOT / "downloads" / f"{imya}.zip"
+            self.assertTrue(arhiv.is_file(), f"нет архива шаблона: {arhiv.name}")
+
+    def test_agent_templates_carry_prompt_and_no_data(self):
+        for imya in SHABLONY:
+            with zipfile.ZipFile(ROOT / "downloads" / f"{imya}.zip") as z:
+                imena = z.namelist()
+
+            self.assertIn(f"{imya}/AGENTS.md", imena, f"в архиве {imya} нет промпта")
+            self.assertIn(f"{imya}/КАК_ЗАПУСТИТЬ.md", imena, f"в архиве {imya} нет инструкции")
+            self.assertTrue(
+                any(n.startswith(f"{imya}/knowledge/") for n in imena),
+                f"в архиве {imya} нет шаблонов знаний",
+            )
+            for put in imena:
+                for marker in ZAPRESHCHENO_V_ARHIVE:
+                    self.assertNotIn(marker, put, f"в архиве {imya} уехали данные: {put}")
+
+    def test_agent_templates_have_empty_working_folders(self):
+        """input/ и output/ едут пустыми: файл в них — это чьи-то данные."""
+        for imya in SHABLONY:
+            with zipfile.ZipFile(ROOT / "downloads" / f"{imya}.zip") as z:
+                imena = z.namelist()
+            for put in imena:
+                if not put.startswith((f"{imya}/input/", f"{imya}/output/")):
+                    continue
+                imya_fayla = put.rsplit("/", 1)[-1]
+                self.assertTrue(
+                    imya_fayla == ".gitkeep" or imya_fayla.startswith("kak_"),
+                    f"в рабочей папке архива {imya} лежит файл с данными: {put}",
+                )
 
 class DemoPagesTest(unittest.TestCase):
     def test_demos_exist_and_are_self_contained(self):
